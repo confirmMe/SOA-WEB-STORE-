@@ -1,0 +1,16 @@
+
+public class Class implements Inter{
+
+	@Override
+	public void te01() {
+		 System.out.println("te01开始了");
+		
+	}
+
+	@Override
+	public int te02(int res) {
+		 
+		return res;
+	}
+
+}

@@ -1,0 +1,34 @@
+package com.taotao.rest.pojo;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class CatNode {
+    
+	 private String n;
+	 private String u;
+	 private List<?> i;
+	public String getN() {
+		return n;
+	}
+	public void setN(String n) {
+		this.n = n;
+	}
+	public String getU() {
+		return u;
+	}
+	public void setU(String u) {
+		this.u = u;
+	}
+	public List<?> getI() {
+		return i;
+	}
+	public void setI(List<?> i) {
+		this.i = i;
+	}
+	 
+	
+	
+	
+}

@@ -1,0 +1,14 @@
+package sw;
+
+import java.lang.reflect.Proxy;
+
+public class daili {
+	public static void main(String[] args) {
+		person p=new student();
+		invoactionhandler invo=new invoactionhandler(p);
+		
+		person res=(person) Proxy.newProxyInstance(person.class.getClassLoader(),new Class[]{person.class}, invo);
+	    res.say();
+	}
+
+}

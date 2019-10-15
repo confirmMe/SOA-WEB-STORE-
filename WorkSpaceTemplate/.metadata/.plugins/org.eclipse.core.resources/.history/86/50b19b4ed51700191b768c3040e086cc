@@ -1,0 +1,19 @@
+package test;
+
+import org.junit.Test;
+
+import com.taotao.common.utils.JsonUtils;
+import com.taotao.pojo.TbUser;
+
+public class TestJson {
+    @Test
+	public void test(){
+		
+    	TbUser tbUser=new TbUser();
+    	tbUser.setEmail("45");
+    	tbUser.setId(1l);
+    	String result=JsonUtils.objectToJson(tbUser);
+    	System.out.println(result);
+    	
+	}
+}

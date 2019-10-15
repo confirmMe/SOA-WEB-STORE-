@@ -1,0 +1,13 @@
+ 
+ 
+public class Test{
+	
+	
+	 void tt(){
+		 
+	 }
+	 public static void main(String[] args) {
+		Test test=new Test();
+		test.tt();
+	}
+}

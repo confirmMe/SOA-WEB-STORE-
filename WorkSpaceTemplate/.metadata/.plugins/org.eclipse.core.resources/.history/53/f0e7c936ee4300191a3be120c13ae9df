@@ -1,0 +1,10 @@
+package Test01;
+
+import Test02.en;
+
+public class te extends en throws NullPointerException,IllegalAccessException{
+	public void run () {
+		System.out.println(2);
+	}
+}
+	 

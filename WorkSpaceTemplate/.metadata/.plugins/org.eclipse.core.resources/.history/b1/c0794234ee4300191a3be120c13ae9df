@@ -1,0 +1,8 @@
+package Test02;
+
+public class en {
+
+public void run() throws NullPointerException {
+	System.out.println(1);
+}
+}

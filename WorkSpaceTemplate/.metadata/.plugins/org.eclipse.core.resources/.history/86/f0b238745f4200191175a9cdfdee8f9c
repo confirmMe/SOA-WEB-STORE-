@@ -1,0 +1,26 @@
+import java.util.HashMap;
+import java.util.Map;
+
+
+class Thr extends Thread{
+	 
+	public void run() {
+		System.out.println("run"); 
+		try {
+			 Thread.sleep(1000);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		System.out.println("stop");
+		
+	}
+}
+public class Test {
+public static void main(String[] args) {
+	
+	Thread en=new Thr();
+	en.setDaemon(true);
+	en.start();
+	System.out.println("--stop");
+}
+}

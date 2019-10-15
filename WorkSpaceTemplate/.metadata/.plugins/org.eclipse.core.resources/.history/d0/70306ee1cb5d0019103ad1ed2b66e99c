@@ -1,0 +1,11 @@
+package sw;
+
+public class student implements person{
+
+	@Override
+	public void say() {
+		 System.out.println("xuesheng ");
+		
+	}
+
+}

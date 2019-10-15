@@ -1,0 +1,24 @@
+package com.taotao.rest.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.taotao.rest.service.ItemCatService;
+
+@Controller
+public class  ItemCatController{
+	@Autowired
+	private ItemCatService catService;
+	@RequestMapping(value="/itemcat/list",produces=MediaType.APPLICATION_JSON_VALUE+";charset=utf-8")
+	@ResponseBody
+	public String ShowCat(String callback){
+		String catResult=catService.ShowItemCat();
+		String result=callback+"("+catResult+")";
+		return result;
+	}
+	 
+	
+	
+}

@@ -1,0 +1,18 @@
+
+public class 切割 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+    String str=("nihaoaaaaayanbbbshu");
+    String[] names=str.split("(.)\\1+");
+    //04正则表达式10'
+    //以aaaaa和bbb为边界切割字符串 
+    for(String name:names){
+    	System.out.println(name);
+    }
+	}
+
+}

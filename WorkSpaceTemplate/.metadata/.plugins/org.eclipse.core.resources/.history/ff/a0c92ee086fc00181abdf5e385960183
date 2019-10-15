@@ -1,0 +1,21 @@
+package com.taotao.rest.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+
+import com.taotao.common.utils.JsonUtils;
+
+public class test {
+    	 
+ @Test
+	public void test(){
+		String ysw="{\"testdatason1\": \"97895455\",\"testdatason2\": 3,\"testData2\": [{\"testshuzu1\": \"11\" }, {\"testshuzu2\": \"14\" }, null, {\"testshuzu3\": \"16\" }]}";
+	    Class<Object> beanType = null;
+	    List list=	JsonUtils.jsonToList(ysw, beanType);
+	    System.out.println(list);
+        	
+		
+	}
+}

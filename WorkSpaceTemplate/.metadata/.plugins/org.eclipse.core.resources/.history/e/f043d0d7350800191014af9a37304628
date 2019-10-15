@@ -1,0 +1,32 @@
+package com.taotao.portal.service.Impl;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.utils.HttpClientUtil;
+import com.taotao.portal.pojo.ItemInfo;
+import com.taotao.portal.service.ItemService;
+@Service
+public class ItemServiceImpl implements ItemService{
+    @Value("${ITEM-BASE-IP}")
+    private String baseInfoIp;
+    
+    
+    
+	public ItemInfo getBaseInfo(Long id) {
+ 
+		
+		String json=HttpClientUtil.doGet(baseInfoIp+id.toString());
+		TaotaoResult result=TaotaoResult.formatToPojo(json, ItemInfo.class);
+		if(result.getStatus()==200){
+			ItemInfo info=(ItemInfo) result.getData();
+			String[] images=info.getImage().split(",");
+			info.setImages(images);
+			return info;
+		}else{
+		return null;
+		}
+	}
+
+}

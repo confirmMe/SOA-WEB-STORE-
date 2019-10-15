@@ -1,0 +1,54 @@
+package Test01;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.soap.Node;
+
+public class Tesrt {
+ 
+public static  class Node{
+			 private Node next;
+			 private int value;
+			 public Node(int value){
+				 this.value=value;
+			 }
+		 }
+public static Node fd(Node node){
+	
+	Node fast=node.next.next;
+	Node slow =node.next;
+	
+	while(fast!=slow){
+		if(fast==null||slow==null){
+			return null;
+		}
+		fast=fast.next.next;
+		slow=slow.next;
+	}
+	fast=node;
+	while(fast!=slow){
+		fast=fast.next;
+		slow=slow.next;
+	}
+	return fast;
+}
+public  static  void main (String [] args){
+    // 1->2->3->4->5->6->7->4...
+    Node head1 = new Node(1);
+    head1.next = new Node(2);
+    head1.next.next = new Node(3);
+    head1.next.next.next = new Node(4);
+    head1.next.next.next.next = new Node(5);
+    head1.next.next.next.next.next = new Node(6);
+    head1.next.next.next.next.next.next = new Node(7);
+    head1.next.next.next.next.next.next.next = head1.next.next.next; // 7->4
+
+    Node result;
+    if((result=fd(head1))!=null) {
+        System.out.println(result.value);
+    }else{
+        System.out.println("空");
+    }
+}
+}

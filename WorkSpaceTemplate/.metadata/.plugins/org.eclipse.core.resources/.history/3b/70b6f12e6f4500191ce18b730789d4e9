@@ -1,0 +1,51 @@
+package Test01;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.soap.Node;
+
+public class Tesrt {
+ 
+public  static  class Node{
+			 private Node left;
+			 private Node right;
+			 private     Integer value;
+			 public Node(Integer value){
+				 this.value=value;
+			 }
+		 }
+ 
+public static String fd(Node node){
+StringBuffer sb=new StringBuffer();
+
+	  if(node.left!=null){
+		  sb.append(fd(node.left));
+	  }
+	  sb.append(node.value.toString());
+ 
+	  if(node.right!=null){
+		  sb.append(fd(node.right));
+	  } 
+	  return sb.toString();
+	   
+}
+public static int [] parse(String res){
+	int [] ele=new int[res.length()];
+	for(int i=0;i<res.length();i++){
+		ele[i]=res.charAt(i);
+	}
+}
+public  static  void main (String [] args){
+	
+	Node node=new Node(1);
+	node.left=new Node(2);
+	node.right=new Node(3);
+	node.right.left=new Node(6);
+	node.left.left=new Node(4);
+	node.left.right=new Node(5);
+ System.out.println(fd(node));
+ 
+   
+}
+}

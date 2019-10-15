@@ -1,0 +1,56 @@
+package com.taotao.rest.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.taotao.mapper.TbItemCatMapper;
+import com.taotao.pojo.TbItemCat;
+import com.taotao.pojo.TbItemCatExample;
+import com.taotao.pojo.TbItemCatExample.Criteria;
+import com.taotao.rest.pojo.CatNode;
+import com.taotao.rest.pojo.CatResult;
+
+@Service
+public class ItemCatServiceImpl implements ItemCatService {
+    @Autowired
+	private TbItemCatMapper catMapper;
+	public CatResult ShowItemCat() {
+		CatResult catResult=new CatResult();
+		catResult.setData(getItemCat((long) 0));
+		return catResult;
+	}
+	public List getItemCat(Long parentId){
+		List list=new ArrayList<>();
+       	int index=0;
+		TbItemCatExample example=new TbItemCatExample();
+		Criteria criteria= example.createCriteria();
+		criteria.andParentIdEqualTo(parentId);
+		List<TbItemCat> itemCat =catMapper.selectByExample(example);
+		for(TbItemCat cat:itemCat){
+			if(cat.getIsParent()){
+			CatNode catNode=new CatNode();
+			
+			if(parentId==0){
+				catNode.setName("<a href='/products/"+cat.getId()+".html'>"+cat.getName()+"</a>");
+			}else{
+				catNode.setName(cat.getName());
+			}
+			catNode.setUrl("/products/"+cat.getId()+".html"); 
+			catNode.setItem(getItemCat(cat.getId()));	
+			list.add(catNode);
+			index++;
+			if(parentId==0&&index==15){
+				break;
+			}
+		}
+		else{
+			list.add("/products/"+cat.getId()+".html|" + cat.getName());
+		}
+		}
+		return list;
+	}
+
+}

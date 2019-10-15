@@ -1,0 +1,38 @@
+package com.taotao.search.service.Impl;
+
+
+import java.util.List;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.common.SolrInputDocument;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.search.mapper.ItemMapper;
+import com.taotao.search.pojo.ItemSearch;
+import com.taotao.search.service.ItemService;
+@Service
+public class ItemServiceImpl implements ItemService {
+
+ 	@Autowired
+	private ItemMapper itemMapper;
+ 	@Autowired
+ 	private HttpSolrServer server;
+	public TaotaoResult addItemService() throws Exception {
+		List<ItemSearch> list = itemMapper.getItemSearchList();
+		for(ItemSearch search:list){
+		SolrInputDocument document = new SolrInputDocument();
+		document.addField("id", search.getId());
+		document.addField("item_title",search.getTitle());
+		document.addField("item_sell_point",search.getSell_point());
+		document.addField("item_price", search.getPrice());
+		document.addField("item_image", search.getImage());
+		document.addField("item_category_name", search.getCatagery_name());
+		document.addField("item_desc", search.getItem_desc());
+		server.add(document);
+		}
+		server.commit();
+		return TaotaoResult.ok();
+	}
+
+}

@@ -1,0 +1,10 @@
+import java.util.Date;
+
+import depend.util;
+
+public class test {
+public static void main(String[] args) {
+	System.out.println(util.getHour(new Date()));
+ 
+}
+}

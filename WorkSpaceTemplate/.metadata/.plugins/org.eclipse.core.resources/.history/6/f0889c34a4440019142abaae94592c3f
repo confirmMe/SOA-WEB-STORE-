@@ -1,0 +1,28 @@
+package Test01;
+
+public    class   te2   {
+	class Person{
+		private int  age;
+
+		public Person(int age){
+			this.age=age;
+		}
+		public int getAge() {
+			return age;
+		}
+
+		public void setAge(int age) {
+			this.age = age;
+		}
+		
+	}
+	public static void setT(Person person){
+		 person.age+=1;
+		
+	}
+	public static void main(String[] args) {
+		int ysw=10;
+		setT(ysw);
+		System.out.println(ysw);
+	}
+}

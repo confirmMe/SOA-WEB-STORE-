@@ -1,0 +1,9 @@
+package com.taotao.portal.service;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.taotao.common.pojo.TaotaoResult;
+
+public interface CartService {
+     TaotaoResult addCartItem(Long id,Long num,HttpServletRequest request);
+}

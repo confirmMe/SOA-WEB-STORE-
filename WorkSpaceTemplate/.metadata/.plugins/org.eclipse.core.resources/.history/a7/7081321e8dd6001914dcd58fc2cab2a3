@@ -1,0 +1,16 @@
+package depend;
+
+import java.util.Calendar;
+import java.util.Date;
+
+public class util {
+    public static int getHour(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.HOUR_OF_DAY);
+    }
+    public static String getYear(Date date) {
+        return format(date).substring(0, 4);
+    }
+ 
+}

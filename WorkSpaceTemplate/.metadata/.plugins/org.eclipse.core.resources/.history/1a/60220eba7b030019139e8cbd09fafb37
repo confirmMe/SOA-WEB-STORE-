@@ -1,0 +1,6 @@
+package com.taotao.search.service;
+
+public interface ItemService {
+
+	void addItemService();
+}

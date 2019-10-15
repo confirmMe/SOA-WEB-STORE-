@@ -1,0 +1,37 @@
+package com.taotao.portal.controller;
+
+import javax.jws.WebParam.Mode;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.taotao.portal.service.ShowAdverService;
+ 
+
+@Controller
+public class ItemController {
+	@Value("${BigAdver}")
+	private String BigAdverId;
+	
+	@Autowired
+    private ShowAdverService adverService;
+	
+	@RequestMapping("/index")
+	public String test(Model model){		
+		model.addAttribute("ad1", adverService.ShowAdverService(BigAdverId));	
+		return "index";
+	}
+	@RequestMapping("/search")
+	public String search(@RequestParam("q") String queryString,
+			             @RequestParam(defaultValue="1") Integer page,
+			             Mode model){
+		return "search";
+	}
+		 
+	
+}

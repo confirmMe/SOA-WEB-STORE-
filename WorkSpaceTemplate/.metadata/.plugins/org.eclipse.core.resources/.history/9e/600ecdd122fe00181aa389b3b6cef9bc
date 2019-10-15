@@ -1,0 +1,26 @@
+package com.taotao.rest.service.Impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.taotao.mapper.TbContentMapper;
+import com.taotao.pojo.TbContent;
+import com.taotao.pojo.TbContentExample;
+import com.taotao.pojo.TbContentExample.Criteria;
+import com.taotao.rest.service.ItemLoadService;
+@Service
+public class ItemLoadServiceImpl implements ItemLoadService {
+    @Autowired
+    private TbContentMapper contentMapper;
+	public List<TbContent> ItemLoadList(Long contentCid) {
+		
+		TbContentExample example=new TbContentExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andCategoryIdEqualTo(contentCid);
+		List<TbContent> list=contentMapper.selectByExampleWithBLOBs(example);
+		System.out.println(1);
+		return list;
+		}
+
+}

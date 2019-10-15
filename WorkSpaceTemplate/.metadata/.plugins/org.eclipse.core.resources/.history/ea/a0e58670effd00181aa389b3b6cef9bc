@@ -1,0 +1,23 @@
+package com.taotao.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+ 
+@Controller
+public class PageController {
+
+    @RequestMapping("/")
+    public String Show(){
+    	return "index";
+    }
+	@RequestMapping("/{page}")
+	public String showpage(@PathVariable( value="page") String page) {
+		//动态跳转页面，当controller层中有对应的requestmapping时优先调用，否则调用本方法从jsp包中查找
+		return page;
+	}
+	
+	 
+	
+}

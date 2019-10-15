@@ -1,0 +1,5 @@
+package com.taotao.rest.dao.Impl;
+
+public class JedisClientCluster {
+
+}

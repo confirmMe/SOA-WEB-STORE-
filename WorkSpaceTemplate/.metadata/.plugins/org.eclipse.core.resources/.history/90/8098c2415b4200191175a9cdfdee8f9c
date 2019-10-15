@@ -1,0 +1,13 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class Test {
+public static void main(String[] args) {
+	
+	Map map=new HashMap();
+	synchronized (map) {
+		map.put(1, "ysw");
+		System.out.println(map.get(1));
+	}
+}
+}

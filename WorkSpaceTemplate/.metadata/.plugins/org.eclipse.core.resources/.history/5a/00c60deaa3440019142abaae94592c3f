@@ -1,0 +1,12 @@
+package Test01;
+
+public    class   te2   {
+	public static void setT(int ele){
+		ele=ele+10;
+		
+	}
+	public static void main(String[] args) {
+		int ysw=10;
+		setT(ysw)
+	}
+}

@@ -1,0 +1,23 @@
+package Test01;
+
+public class Test {
+
+/**
+ * @param args
+ */
+public static void main(String[] args) {
+// TODO Auto-generated method stub
+Test t=new Test();
+t.print();
+}
+
+public static void staticPrint(){
+Test t=new Test();
+t.print();
+}
+
+public void print(){
+System.out.println("1111111111111");
+}
+
+}

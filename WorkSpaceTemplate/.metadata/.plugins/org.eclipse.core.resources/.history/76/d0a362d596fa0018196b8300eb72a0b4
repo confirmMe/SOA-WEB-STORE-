@@ -1,0 +1,27 @@
+package com.taotao.service;
+
+import java.util.List;
+
+import org.springframework.aop.framework.AopConfigException;
+
+import com.taotao.common.pojo.EUDataResult;
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.pojo.TbItem;
+
+public interface ItemService {
+	
+
+    public EUDataResult  getItemList(int page,int rows );
+    public TaotaoResult addItem(TbItem item,String desc,String itemParams) throws Exception;
+    public EUDataResult  getItemParam(int page,int rows);
+    public TaotaoResult showIsParam(Long itemCatId);
+    public TaotaoResult addItemParam(Long itemCatId,String paramData);
+    public String TestShowParam(Long itemId);
+    
+    public TaotaoResult ShowDesc(Long id);
+    public TaotaoResult ShowParam(Long id);
+    
+    public TaotaoResult ItemUpdate(TbItem item ,String desc,String itemParams,Long itemParamId );
+    public TaotaoResult ItemDelete(List<Long> params);
+    public TaotaoResult ItemInstock(List<Long> params);
+}

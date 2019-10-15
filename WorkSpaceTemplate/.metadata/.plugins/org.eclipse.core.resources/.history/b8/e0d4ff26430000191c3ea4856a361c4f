@@ -1,0 +1,65 @@
+package com.taotao.rest.dao.Impl;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.taotao.rest.dao.JedisClient;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+
+public class JedisClientImpl implements JedisClient {
+
+	ApplicationContext context=new ClassPathXmlApplicationContext("classpath:spring/applicationContext-jedis.xml");
+	JedisPool pool=(JedisPool) context.getBean("redisClient");
+	Jedis jedis=pool.getResource();
+	public String get(String key) {
+		// TODO Auto-generated method stub
+		String result=jedis.get(key);
+		jedis.close();
+	    return 	result;
+	}
+
+	@Override
+	public String set(String key, String value) {
+		String result=jedis.set(key, value);
+		jedis.close();
+		return result;
+	}
+
+	@Override
+	public String hget(String hkey, String field) {
+	   String result= jedis.hget(hkey, field);
+	   jedis.close();
+	   return result;
+	}
+
+	@Override
+	public long hset(String hkey, String field, String value) {
+	   long result=jedis.hset(hkey, field, value);
+	   jedis.close();
+	   return 	result;
+	}
+
+	@Override
+	public long incr(String key) {
+		long result=jedis.incr(key);
+		jedis.close();
+		return result;
+	}
+
+	@Override
+	public long expire(String key, long lastTime) {
+		long result=expire(key, lastTime);
+		jedis.close();
+		return result;
+	}
+
+	@Override
+	public long ttl(String key) {
+	    long result=jedis.ttl(key);
+	    jedis.close();
+		return result;
+	}
+
+}

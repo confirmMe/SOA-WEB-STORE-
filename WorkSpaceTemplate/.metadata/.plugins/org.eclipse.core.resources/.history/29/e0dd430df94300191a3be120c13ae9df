@@ -1,0 +1,8 @@
+package Test01;
+
+import Test02.en;
+
+public final   interface te   {
+	  
+}
+	 

@@ -1,0 +1,14 @@
+package test;
+
+public class test {
+
+	private test(){}
+	private static test ysw;
+	public tetst getTets(){
+		if (ysw==null) {
+			 
+		}else{
+			return ysw;
+		}
+	}
+}

@@ -1,0 +1,5 @@
+package com.toatao.order.pojo;
+
+public class Order {
+
+}

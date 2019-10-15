@@ -1,0 +1,25 @@
+package com.taotao.order.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.order.service.CreateOrderService;
+import com.toatao.order.pojo.Order;
+
+@Controller
+public class OrderController {
+    
+	@Autowired
+	private CreateOrderService  orderService;
+	
+	@RequestMapping("/create")
+	@ResponseBody
+	public TaotaoResult create(@RequestBody Order order){
+		TaotaoResult result=orderService.create(order, order.getOrderShipping(), order.getItemList());
+		return result;
+	}
+}

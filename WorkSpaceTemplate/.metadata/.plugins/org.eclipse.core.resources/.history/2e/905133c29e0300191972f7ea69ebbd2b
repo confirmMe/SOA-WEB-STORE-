@@ -1,0 +1,8 @@
+package com.taotao.search.dao;
+
+import com.taotao.search.pojo.SearchResult;
+
+public interface ItemSearchDao {
+	  SearchResult ItemSearch();
+
+}

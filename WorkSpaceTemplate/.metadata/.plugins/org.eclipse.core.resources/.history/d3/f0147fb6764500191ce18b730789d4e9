@@ -1,0 +1,20 @@
+import java.util.Scanner;
+
+import javax.swing.text.StyledEditorKit.BoldAction;
+
+
+public class 正则表达式0 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner rq=new Scanner(System.in);
+		String qq=rq.nextLine();
+    String regex="[1-9][0-9]{4,9}";
+    boolean a=qq.matches(regex);
+    System.out.println(a);
+	}
+
+}

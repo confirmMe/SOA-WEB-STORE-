@@ -1,0 +1,33 @@
+package com.taotao.rest.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.pojo.TbContent;
+import com.taotao.rest.service.ItemLoadService;
+
+@Controller
+@RequestMapping("/content")
+public class ItemLoadController {
+    @Autowired
+	private ItemLoadService itemLoadService;
+    
+    @RequestMapping("/list")
+    @ResponseBody
+    public List<TbContent> ShowItemLoad( Long contentCid){
+    	return itemLoadService.ItemLoadList(contentCid);	  	 
+    }
+    
+    @RequestMapping("/redisUpdate")
+    public void updateRedis(Long contentCid){
+    	itemLoadService.updateRedis(contentCid);
+    }
+
+    
+}

@@ -1,0 +1,19 @@
+
+public class 替换 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+  String text=("yanuuuuushuiiiiiwei");
+  String a=text.replaceAll("(.)\\1+","$1");
+  //正则表达式05，3'30"
+  //$应用于在第二个函数中调用第一个函数的参数
+  String tel=("1764281891");
+  String b=tel.replaceAll("(\\d{3})\\d{4}(\\d{3})","$1****$2");
+  System.out.println(b);
+  System.out.println(a);
+	}
+
+}

@@ -1,0 +1,12 @@
+package Test01;
+
+import java.applet.Applet;
+import java.awt.Graphics;
+
+public class te extends Applet{
+	
+	public void  pant(Graphics g){
+		g.drawString("helloworld", 25, 50);
+	}
+	
+}

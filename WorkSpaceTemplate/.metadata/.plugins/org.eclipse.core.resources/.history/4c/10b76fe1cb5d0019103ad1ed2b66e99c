@@ -1,0 +1,17 @@
+package sw;
+
+public class test1  {
+private static test1 en;
+	private test1() {
+		 
+	}
+	public static test1 gettest(){
+		if(en==null){
+			System.out.println("1");
+			en =new test1();
+		}else{
+			System.out.println(2);
+		}
+		return en;
+	}
+}

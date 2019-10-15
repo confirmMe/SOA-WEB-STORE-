@@ -1,0 +1,17 @@
+package Test02;
+
+import org.omg.Messaging.SyncScopeHelper;
+
+import Test01.te;
+
+public class en  {
+	static {
+		System.out.println("静态");
+	}
+ public static void main(String[] args) {
+   
+	
+}
+ 
+
+}

@@ -1,0 +1,62 @@
+package com.taotao.order.service.impl;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.utils.ListUtils;
+import com.taotao.mapper.TbOrderItemMapper;
+import com.taotao.mapper.TbOrderMapper;
+import com.taotao.mapper.TbOrderShippingMapper;
+import com.taotao.order.dao.JedisClient;
+import com.taotao.order.service.CreateOrderService;
+import com.taotao.pojo.TbOrder;
+import com.taotao.pojo.TbOrderItem;
+import com.taotao.pojo.TbOrderShipping;
+
+public class CreateOrderServiceImpl implements CreateOrderService {
+    @Autowired
+	private TbOrderMapper orderMapper;
+    @Autowired
+	private TbOrderItemMapper orderItemMapper;
+    @Autowired
+	private TbOrderShippingMapper orderShippingMapper;
+    @Autowired
+    private JedisClient client;
+    
+    @Value("${ORDER_GEN_KEY}")
+    private String OrderKey;
+    @Value("${ORDER_INIT_KEY}")
+    private String OrderInitVal;
+
+	//创建商品订单
+	public TaotaoResult create(TbOrder order, TbOrderShipping orderShipping, List<TbOrderItem> itemList) {
+		if(ListUtils.isEmptyString(client.get(OrderKey))){
+			//key为ORDER_GEN_KEY的数据为空
+			client.set(OrderKey, OrderInitVal);
+		}
+		long orderId=client.incr(OrderKey);
+		
+		order.setOrderId(orderId+"");
+		//状态：1、未付款，2、已付款，3、未发货，4、已发货，5、交易成功，6、交易关闭
+		order.setStatus(1);
+		order.setUpdateTime(new Date());
+		order.setCreateTime(new Date());
+		//0是未评价，1是评价
+		order.setBuyerRate(0);
+		orderMapper.insert(order);
+		
+		
+		for (TbOrderItem tbOrderItem : itemList) {
+			Random random = new Random();
+			int end3 = random.nextInt(9999);//实际生成0-9999之间的随机数
+		    long id=orderId+end3;
+			tbOrderItem.setId(id+"");
+		}
+	}
+
+}

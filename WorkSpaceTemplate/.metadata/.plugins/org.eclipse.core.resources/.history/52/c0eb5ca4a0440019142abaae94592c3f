@@ -1,0 +1,6 @@
+package Test01;
+
+public interface te2  extends te{
+	public void te2() ;
+		 
+}

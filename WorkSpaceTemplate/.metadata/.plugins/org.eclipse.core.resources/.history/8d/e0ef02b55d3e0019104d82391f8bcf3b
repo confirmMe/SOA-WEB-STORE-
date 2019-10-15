@@ -1,0 +1,85 @@
+package com.taotao.portal.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.portal.pojo.CartItem;
+import com.taotao.portal.service.CartService;
+
+/**
+ * 将选中的商品添加进购物车，如果购物车中已经存在当前商品，则只增加其数量，否则添加商品的信息
+ * 由于update操作和add操作还有delete操作类似，设置updateFlag为0时为delete操作为1时为add操作，为2时为update操作
+ */
+@Controller
+@RequestMapping("/cart")
+public class CartController {
+
+//	@Autowired
+	private CartService cartService;
+
+	@RequestMapping("/add/{id}")
+	public String addCartItem(@PathVariable Long id, @RequestParam(defaultValue = "1") Long num,
+			HttpServletRequest request, HttpServletResponse response) {
+		// 向购物车中添加商品
+		try {
+			cartService.addCartItem(id, num, request, response, 1);
+			return "redirect:/cart/success/1.html";
+		} catch (Exception e) {
+			// 异常状况下
+			return "redirect:/cart/success/0.html";
+		}
+
+	}
+
+	@RequestMapping("/update/{id}")
+	@ResponseBody
+	public TaotaoResult updateCartItem(@PathVariable Long id, long num,
+			// 将购物车的商品数量设置为指定的数量
+			HttpServletRequest request, HttpServletResponse response) {
+		return cartService.addCartItem(id, num, request, response, 2);
+	}
+
+	@RequestMapping("/delete/{id}")
+	public String deleteCartItem(@PathVariable long id,
+			// 在购物车中删除该商品
+			HttpServletRequest request, HttpServletResponse response) {
+		cartService.addCartItem(id, 0l, request, response, 0);
+		return "redirect:/cart/cart.html";
+	}
+
+	@RequestMapping("/success/{flag}")
+	public String Show(@PathVariable long flag) {
+		// 该方法的作用是解决提交购物车页面刷新带来的重复操作问题
+		// 原理是重定向到一个新的方法，盖面URL
+		if (flag == 1) {
+			// 正常
+			return "cartSuccess";
+		} else {
+			// 异常
+			return "error";
+		}
+	}
+
+	@RequestMapping("/cart")
+	public String showCartItem(HttpServletRequest request, Model model) {
+		// 展示购物车中的商品信息
+		List<CartItem> cartList = cartService.getCartItemList(request);
+		model.addAttribute("cartList", cartList);
+		//此时购物车中商品的种类数
+		model.addAttribute("totalnum", cartList.size());
+		return "cart";
+
+	}
+
+}

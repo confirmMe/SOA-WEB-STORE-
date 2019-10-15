@@ -1,0 +1,29 @@
+package Test01;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.soap.Node;
+
+public class Tesrt {
+ 
+public static  class Node{
+			 private Node next;
+			 private int value;
+			 public Node(int value){
+				 this.value=value;
+			 }
+		 }
+public static Node fd(Node node){
+	
+	Node fast=node.next.next;
+	Node slow =node.next;
+	
+	while(fast!=slow){
+		fast=fast.next.next;
+		slow=slow.next;
+		
+	}
+}
+
+}

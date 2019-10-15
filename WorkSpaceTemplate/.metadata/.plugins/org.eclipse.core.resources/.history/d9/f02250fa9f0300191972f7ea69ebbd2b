@@ -1,0 +1,15 @@
+package com.taotao.search.dao;
+
+import org.apache.solr.client.solrj.SolrQuery;
+
+import com.taotao.search.pojo.SearchResult;
+
+public class ItemSearchDaoImpl implements ItemSearchDao {
+
+	
+	public SearchResult ItemSearchByQuery(SolrQuery query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

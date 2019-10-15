@@ -1,0 +1,20 @@
+package com.taotao.rest.service.Impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.mapper.TbContentMapper;
+import com.taotao.pojo.TbContent;
+import com.taotao.rest.service.ItemLoadService;
+@Service
+public class ItemLoadServiceImpl implements ItemLoadService {
+    @Autowired
+    private TbContentMapper contentMapper;
+	public List<TbContent> ItemLoadList(Long contentCid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,19 @@
+package com.taotao.rest.dao;
+
+public interface JedisClient {
+   
+	String get(String key);
+	String set(String key,String value);
+	
+	//hash操作比常规操作多出一层map
+	String hget(String hkey,String key);
+	String hset(String hkey,String key,String value);
+	
+	//设置value自加1
+	long incr(String key);
+	//设置value的有效时间
+	long expire(String key,long lastTime);
+	//查看value的有效时间
+	long ttl(String key);
+	
+}

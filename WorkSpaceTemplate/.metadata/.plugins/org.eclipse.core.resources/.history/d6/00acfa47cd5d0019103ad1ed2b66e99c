@@ -1,0 +1,15 @@
+package sw;
+
+import java.lang.reflect.Proxy;
+
+public class test {
+
+	 public static void main(String[] args) {
+		 person per=new student();
+			invo in=new invo(per);
+			
+			person p=(person) Proxy.newProxyInstance(new person().getClass().getClassLoader(), new Class[]{person.class}, in);
+	}
+	
+	
+}

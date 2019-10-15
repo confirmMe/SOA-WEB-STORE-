@@ -1,0 +1,11 @@
+package com.taotao.portal.service.Impl;
+
+public class ShowAdverService implements com.taotao.portal.service.ShowAdverService {
+
+	@Override
+	public String ShowSmallAdverService(Long contentCid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

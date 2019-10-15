@@ -1,0 +1,11 @@
+package com.taotao.search.service;
+
+import java.util.List;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.pojo.ItemSearch;
+
+public interface ItemService {
+
+	TaotaoResult addItemService() throws Exception;
+}

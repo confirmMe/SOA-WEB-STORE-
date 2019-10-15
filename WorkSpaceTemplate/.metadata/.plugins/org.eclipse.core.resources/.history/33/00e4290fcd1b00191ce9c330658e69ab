@@ -1,0 +1,17 @@
+package com.taotao.order.service.impl;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.order.service.CreateOrderService;
+import com.taotao.pojo.TbOrder;
+import com.taotao.pojo.TbOrderItem;
+import com.taotao.pojo.TbOrderShipping;
+
+public class CreateOrderServiceImpl implements CreateOrderService {
+
+	//创建商品订单
+	public TaotaoResult create(TbOrder order, TbOrderShipping orderShipping, TbOrderItem item) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

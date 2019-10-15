@@ -1,0 +1,14 @@
+package com.taotao.sso.service.Impl;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.sso.service.UserService;
+
+public class UserServiceImpl implements UserService {
+
+ 
+	public TaotaoResult Check( String param,Integer type) {
+ 
+		return null;
+	}
+
+}

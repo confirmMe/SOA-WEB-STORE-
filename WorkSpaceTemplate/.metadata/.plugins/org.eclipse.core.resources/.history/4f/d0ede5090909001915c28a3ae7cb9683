@@ -1,0 +1,8 @@
+BigAdver=89
+#加载广告位调用的业务ip
+LOadRestIp=http://localhost:8081/rest/content/list
+#加载搜索服务调用的业务ip
+LoadSearchIp=http://localhost:8083/search/query
+#加载搜索到的商品的主要信息服务
+ITEM-BASE-IP=http://localhost:8081/rest/item/info/
+ITEM-DESC-IP=http://localhost:8081/rest/item/desc/

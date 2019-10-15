@@ -1,0 +1,9 @@
+package Test01;
+
+public final in te2 extends te{
+    public static void main(String[] args) {
+		te e=new te();
+	 
+		
+	}
+}

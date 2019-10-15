@@ -1,0 +1,16 @@
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+public class InvoAction implements InvocationHandler{
+
+	Object obj;
+    public InvoAction(Object obj) {
+		 obj=this.obj;
+	}
+	@Override
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

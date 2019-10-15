@@ -1,0 +1,15 @@
+package sw;
+class father{
+	public father(){
+		System.out.println("father");
+	}
+}
+public class te extends father {
+    public te(){
+    	System.out.println("sin");
+    }
+    public static void main(String[] args) {
+		father t=new te();
+		
+	}
+}

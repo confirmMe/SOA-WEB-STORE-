@@ -1,0 +1,154 @@
+package com.taotao.rest.service.Impl;
+
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.utils.JsonUtils;
+import com.taotao.mapper.TbItemDescMapper;
+import com.taotao.mapper.TbItemMapper;
+import com.taotao.mapper.TbItemParamItemMapper;
+import com.taotao.pojo.TbItem;
+import com.taotao.pojo.TbItemDesc;
+import com.taotao.pojo.TbItemParamItem;
+import com.taotao.pojo.TbItemParamItemExample;
+import com.taotao.pojo.TbItemParamItemExample.Criteria;
+import com.taotao.rest.dao.JedisClient;
+import com.taotao.rest.service.ItemService;
+@Service
+public class ItemServiceImpl implements ItemService{
+    @Autowired
+	private TbItemMapper itemMapper;
+    @Autowired
+    private TbItemDescMapper descMapper;
+    @Autowired
+    private TbItemParamItemMapper paramMapper;
+    @Autowired
+    private JedisClient client;
+    @Value("${REDIS-BUTTON}")
+    private Integer flag;
+    //主要信息的key
+    @Value("${ITEM-SEARCH-INFO}")
+    private String base;
+    //商品描述的key
+    @Value("${ITEM-SEARCH-DESC}")
+    private String desc;
+    //规格参数的key
+    @Value("${ITEM-SEARCH-PARAM}")
+    private String param;
+    //过期时间
+    @Value("${ITEM-SEARCH-EXPIRE}")
+    private Integer  safeTime;
+    
+	public TaotaoResult getItemInfo(Long id) {
+		if(flag==1){
+		String baseResult=client.get(base+id.toString());
+		//如果在redis服务器找到结果
+		try {
+			if(!StringUtils.isBlank(baseResult)){
+			TbItem baseItem=JsonUtils.jsonToPojo(baseResult, TbItem.class);
+			return TaotaoResult.ok(baseItem);
+		}
+		} catch (Exception e) {
+			 e.printStackTrace();
+		}
+		}
+		TbItem item=itemMapper.selectByPrimaryKey(id);
+		
+		if(flag==1){
+		try {
+		//如果没有找到数据，添加到redis服务器中
+			String json=JsonUtils.objectToJson(item);
+			client.set(base+id.toString(),json);
+			client.expire(base+id.toString(), safeTime);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		}
+		
+		return TaotaoResult.ok(item);
+		
+	}
+
+	@Override
+	public TaotaoResult getItemDesc(Long id) {
+		
+		if(flag==1){
+		try {
+			//在redis中找到该数据
+		    String descResult=client.get(desc+id.toString());
+		    if(!StringUtils.isBlank(descResult)){
+			TbItemDesc descItem=JsonUtils.jsonToPojo(descResult, TbItemDesc.class);
+			return TaotaoResult.ok(descItem);
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		}
+
+		TbItemDesc item= descMapper.selectByPrimaryKey(id);
+		if(item!=null){
+			
+			if(flag==1){
+			try {
+				//如果查询到的数据不为空，则添加到redis服务器中
+				String json=JsonUtils.objectToJson(item);
+				client.set(desc+id.toString(), json);
+				client.expire(desc+id.toString(), safeTime);
+			} catch (Exception e) {
+				 e.printStackTrace();
+			}
+			}
+			return TaotaoResult.ok(item);
+		}else{
+			return TaotaoResult.build(400, "未找到数据");
+		}
+		 
+	}
+
+	@Override
+	public TaotaoResult getItemParam(Long id) {
+		
+		if(flag==1){
+		try {
+			//在redis中找到该数据
+			String paramResult=client.get(param+id.toString());
+		    if(!StringUtils.isBlank(paramResult)){
+			TbItemParamItem paramItem=JsonUtils.jsonToPojo(paramResult, TbItemParamItem.class);
+			return 	TaotaoResult.ok(paramItem);
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		}
+		
+		
+		TbItemParamItemExample example=new TbItemParamItemExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andItemIdEqualTo(id);
+		List<TbItemParamItem> list=paramMapper.selectByExampleWithBLOBs(example);
+		
+		if(list!=null&&list.size()>0){
+			if(flag==1){
+			try {
+				//如果查询到的数据不为空，则添加到redis服务器中
+				String json=JsonUtils.objectToJson(list.get(0));
+				client.set(param+id.toString(), json);
+				client.expire(param+id.toString(), safeTime);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			}
+		
+			return TaotaoResult.ok(list.get(0));
+		}
+		else{
+		return TaotaoResult.build(400, "未找到数据");
+		}
+	}
+
+}

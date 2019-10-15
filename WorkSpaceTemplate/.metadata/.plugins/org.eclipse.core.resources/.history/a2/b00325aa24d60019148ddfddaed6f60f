@@ -1,0 +1,180 @@
+package Game;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Date;
+
+import depend.GameP;
+import depend.MyFrame;
+
+public class PlanetGame extends MyFrame{
+
+	Image bg=GameP.getP("images/bg.png");
+	
+	Image RES1=GameP.getP("images/RES1.jpg");
+	Image RES2=GameP.getP("images/RES2.jpg");
+	Image RES3=GameP.getP("images/RES3.jpg");
+	Image RESFIN=GameP.getP("images/RESFIN.jpg");
+	
+    
+    Plane p=new Plane(180, 800, "images/plane.png",10);
+	ArrayList Billetlist=new ArrayList();
+	Date startTime;
+	Date endTime;
+	Date liveTime;
+	boolean con=false;
+	Boom zha;
+	
+public void paint(Graphics g){
+		g.drawImage(bg, 0, 0, null);
+		p.draw(g);
+		
+        for (int i = 0; i <Billetlist.size() ; i++) {
+			Billet d=(Billet) Billetlist.get(i);
+			d.draw(g);
+			
+        
+        boolean con=d.getRec().intersects(p.getRec());
+        
+			if(con){
+				p.setLive(false);
+				
+                if(zha==null)
+                {
+                zha=new Boom(p.x,p.y);
+				
+				endTime=new Date();
+                }
+                zha.paint(g);
+			}
+        }
+        
+        
+        if(!p.isLive()){   	       	
+          
+            long result=(endTime.getTime()-startTime.getTime())/1000;
+            
+            switch ((int)result/10) {
+//			case 0:
+//				g.drawImage(RES1, 0, 0, null);
+//				p.draw(g);
+//				printInfo(g ,"你这也太菜了",50,60,400,Color.BLUE);
+//	            
+//				break;
+//			case 1:
+//				g.drawImage(RES2, 0, 0, null);
+//				p.draw(g);
+//				printInfo(g ,"也不行啊小老弟",50,10,400,Color.BLUE);
+//				 
+//				
+//				break;
+//			case 2:
+//				g.drawImage(RES3, 0, 0, null);
+//				p.draw(g);
+//				printInfo(g ,"这次还可以吧小雅莉",38,10,400,Color.BLUE);
+//              break;
+			case 0:
+				p.draw(g);
+				printInfo(g ,"  小雅莉你好！",25,10,60,Color.red);
+				printInfo(g ,"当你看到这段话的时候，我猜想",25,10,100,Color.BLUE);
+				printInfo(g ,"你已经毕业了，可能你已经考上",25,10,130,Color.BLUE);
+				printInfo(g ,"了浙江工业大学的研究生，可能",25,10,160,Color.BLUE);
+				printInfo(g ,"你的妈妈带你回到了金华，很遗",25,10,190,Color.BLUE);
+				printInfo(g ,"憾到最后我还是没能留下你，我",25,10,220,Color.BLUE);
+				printInfo(g ,"想对你说的是",25,10,250,Color.BLUE);
+				printInfo(g ,"遇到你真的是我的大学最幸运的",25,10,280,Color.BLUE);
+				printInfo(g ,"事，你教会了我如何去爱，如何",25,10,310,Color.BLUE);
+				printInfo(g ,"保护一个人，还有如何带给别人",25,10,340,Color.BLUE);
+				printInfo(g ,"快乐，可能我们这辈子也不会在",25,10,370,Color.BLUE);
+				printInfo(g ,"一起了，其实这是我最不愿意承 ",25,10,400,Color.BLUE);
+				printInfo(g ,"认的，我很不甘心，在没有能力",25,10,430,Color.BLUE);
+				printInfo(g ,"年纪遇见了想保护一生的人。",25,10,460,Color.BLUE);
+				printInfo(g ,"我希望你能一生被爱，一生被人",25,10,490,Color.BLUE);
+				printInfo(g ,"珍惜，一路有良人相伴，我希望",25,10,520,Color.BLUE);
+				printInfo(g ,"你能幸福。",25,10,550,Color.BLUE);
+				printInfo(g ,"我永远不会忘记你，我的肩膀始",25,10,580,Color.BLUE);
+				printInfo(g ,"终是你的依靠，我仍然希望在你",25,10,610,Color.BLUE);
+				printInfo(g ,"遇到困难时，第一个想到的人，",25,10,640,Color.BLUE);
+				printInfo(g ,"会是我",25,10,670,Color.BLUE);
+				printInfo(g ,"万难出口，恐你再受煎熬，江雅",25,10,700,Color.BLUE);
+				printInfo(g ,"莉，你下一个爱上的人，就会是",25,10,730,Color.BLUE);
+				printInfo(g ,"我的样子",25,10,760,Color.BLUE);
+				printInfo(g ,"我永远爱你，阎述伟",25,10,790,Color.RED);
+				printInfo(g ,"写于2019-9-13日晚",25,10,820,Color.BLUE);
+				
+                break;
+	            
+				 
+				
+			 
+			default:
+				break;
+			}
+        }
+        long result=(liveTime.getTime()-startTime.getTime())/1000;
+        if(p.isLive()){	
+            printInfo(g, "您生存了", 30, 10, 70, Color.RED);
+            liveTime=new Date();
+             
+            printInfo(g ,result+"秒",30,230,70,Color.BLUE);
+           
+        }
+	}
+public void printInfo(Graphics g,String str,int size,int x,int y,Color color) {
+	Color c=g.getColor();//��ȡԭ������ɫ
+	Font b=g.getFont();//��ȡԭ������
+	Font f=new Font("����",Font.BOLD,size);//���壬�����ֺ�100
+	g.setFont(f);
+	g.setColor(color);
+	g.drawString(str, x, y);
+	g.setColor(c);//����ɫ����֮���ٸĻ���
+	g.setFont(b);//���������֮���ٸĻ���
+}
+	   
+	
+	
+	/*
+	 * ��������
+	 * @see depend.MyFrame#launch()
+	 */
+public void launch(){
+		//���Ӽ��̵ļ���
+		super.launch();
+		addKeyListener(new keyMonitor());
+		for (int i = 0; i < 5; i++) {//����50��Billet
+			Billet b =new Billet();
+			//ÿһ������һ���µ�Billet����
+			Billetlist.add(b) ;
+			
+		}
+	//�����ɵ�50��Billet����װ��֮ǰ�����Billetlist������
+		startTime=new Date();
+	}
+	class keyMonitor extends KeyAdapter{
+		public void keyPressed(KeyEvent e) {
+			System.out.println("����"+e.getKeyCode());
+            p.anxia(e);
+		}		
+		public void keyReleased(KeyEvent e) {
+			System.out.println("����"+e.getKeyCode());
+			p.tanqi(e);
+		}
+		
+	}
+	
+
+
+	
+public static void main(String[] args) {
+		new PlanetGame().launch();
+		
+	}
+	
+		
+	
+}

@@ -1,0 +1,7 @@
+package sw;
+
+import java.lang.reflect.InvocationHandler;
+
+public class invo extends InvocationHandler{
+
+}

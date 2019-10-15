@@ -1,0 +1,231 @@
+package test;
+import java.awt.Button;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+import javax.swing.JOptionPane;
+import java.awt.*;
+ class MiGong extends Canvas{
+final int unitSize =20;  
+int rowNum; 
+int columnNum;
+/** Creates a new instance of CanvasPalyBL */
+public MiGong() {
+rowNum = 48; 
+columnNum = 27; 
+}
+int xx=0,yy=0;
+static int startx=0,starty=0; 
+boolean have=true; 
+//墙的X坐标
+int x[]={20,20,40,60,80,80,80,100,140,160,180,200,220, 
+240,260,280,300,320,340,360,380,400,400,400,400,
+400,400,400,420,440,460,480,500,500,500,500,500,
+500,500,500,500,500,500,540,540,540,540,540,540,
+560,580,600,620,640,660,680,700,700,700,700,700, 
+700,700,700,700,700,700,680,660,640,620,600,580,
+560,540,520,500,480,460,440,420,400,380,360,340,
+320,300,280,260,240,220,200,180,160,140,120,100,400,
+400,400,400,400,420,440,460,480,500,520,540,560,
+580,600,620,640,660,680,700,700,700,700,700,720,
+740,760,780,800,820,840,860,880,900,160,180,200,220,
+240,260,280,300,320,340,360,380,400,420,440,440,
+440,440,440,440,440,0,20,40,40,40,40,40,40,40,40,40,
+40,40,40,40,40,40,40,40,40,20,0,0,20,40,60,80,100,
+120,140,160,180,200,200,200,200,240,240,240,240,260,280,
+300,320,340,360,380,400,400,760,760,760,760,760,760,
+760,760,760,760,760,760,760,760,760,760,760,740,720,
+700,680,660,640,760,620,600,580,560,540,520,500,480,460,
+440,760,780,800,820,840,860,880,900,760,760,760,780,
+800,820,840,860,880,900,920,800,800,800,800,800,800,
+800,800,800,800,800,800,800,800,800,800,820,840,860,
+880,900,920,80,100,120,140,160,180,200,220,240,260,280,300,
+320,340,360,80,80,80,80,80,80,80,80,360,360,360,360,360,
+360,340,320,300,280,260,240,220,200,180,160,140,140,140,140,140,
+160,180,200,220,240,260,280,300,300,300,280,260,240,80,100,120,
+140,160,180,200,220,240,260,280,300,320,320,320,300,280,260,240,220,
+200,180,160,140,120,540,540,540,540,560,580,600,620,640,660,680,700,
+700,700,700,400,420,440,460,480,500,520,540,560,580,600,620,
+640,640,640,640,640,640,640,620,600,600,600,600,600,840,860,880,
+880,880,880,880,880,880,880,880,880,880,880,880,860,840,840,840,
+840,840,840,840,840,840,840,840,840,300,320,340,360,380,400,420,
+440,460,480,500,520,540,560,580,600,620,640,640,640,620,600,580,
+560,540,520,500,480,460,900};
+//墙的Y坐标
+int y[]={ 0,20,20,20,20,40,60,80,80,80,80,80,80,80,80,80,
+80,80,80,80,80,80,100,120,140,160,180,200,200,200,200,200,
+200,180,160,140,120,100,80,60,40,20,0,200,180,160,140,120,100,100,
+100,100,100,100,100,100,100,120,140,160,180,200,220,240,260,280,300,
+300,300,300,300,300,300,300,300,300,300,300,300,300,300, 
+300,300,300,300,300,300,300,300,300,300,300,300,300,300,
+300,300,320,340,360,380,400,400,400,400,400,400,400,400, 
+400,400,400,400,400,400,400,400,420,440,460,480,480,480,
+480,480,480,480,480,480,480,480,40,40,40,40,40,40,40,40,
+40,40,40,40,40,40,40,60,80,100,120,140,160,60,60,60,80,100,120,
+140,160,180,200,220,240,260,280,300,320,340,360,380,400,400,
+400,440,440,440,440,440,440,440,440,440,440,440,460,480,
+500,500,480,460,440,440,440,440,440,440,440,440,440,420,
+0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,
+340,340,340,340,340,340,340,340,340,340,340,340,340,340,
+340,340,340,380,380,380,380,380,380,380,380,400,420,440,
+440,440,440,440,440,440,440,440,0,20,40,60,80,100,120,140,160,
+180,200,220,240,260,280,300,300,300,300,300,300,300,140,140,
+140,140,140,140,140,140,140,140,140,140,140,140,140,160,180,200,220,240,
+260,280,300,160,180,200,220,240,260,260,260,260,260,260,260,
+260,260,260,260,260,240,220,200,180,180,180,180,180,180,180,180,180,
+200,220,220,220,220,340,340,340,340,340,340,340,340,340,340,
+340,340,340,360,380,380,380,380,380,380,380,380,380,380,380,
+0,20,40,60,60,60,60,60,60,60,60,60,40,20,0,260,260,260,260,260,
+260,260,260,260,260,260,260,260,240,220,200,180,160,140,140,140,160,180,
+200,220,20,20,20,40,60,80,100,120,140,160,180,200,220,240,260,260,260,
+240,220,200,180,160,140,120,100,80,60,40,480,480,480,480,480,480,480,480,
+480,480,480,480,480,480,480,480,480,480,460,440,440,440,440,440,440,
+440,440,440,440,500};
+
+public void paint(Graphics g){ 
+g.setColor(Color.black);
+for(int i = 0; i < rowNum; i++){
+for(int j = 0; j < columnNum; j++){
+g.fill3DRect(i*unitSize,j*unitSize,unitSize, unitSize, true); 
+} 
+}
+g.setColor(Color.green); 
+for(int i=0;i<x.length;i++){ 
+g.fill3DRect(x[i], y[i], unitSize, unitSize, true);
+} 
+for(int i=0;i<columnNum;i++){ 
+g.fill3DRect((rowNum-1)*unitSize, i*unitSize, unitSize, unitSize, true);
+}
+for(int i=0;i<rowNum-2;i++){ 
+g.fill3DRect(i*unitSize, (columnNum-1)*unitSize, unitSize, unitSize, true);
+}
+g.setColor(Color.red);
+if(startx < 940 & starty <= 500){
+g.fill3DRect(startx, starty, unitSize, unitSize, true);
+xx=startx;
+yy=starty;
+}else{
+g.fill3DRect(xx, yy, unitSize, unitSize, true);
+} 
+}
+public void moveRight(){ 
+if(startx<940 & starty <=500)
+{ 
+startx=startx+unitSize; 
+for(int i=0;i<x.length;i++){ 
+if(startx==x[i] & starty==y[i]){
+have=false;
+startx=startx-unitSize; 
+}
+}
+if(have){
+repaint(); 
+}else{
+have=true; 
+}
+}else{
+startx=startx-unitSize; 
+}
+if(startx==920 & starty==500){ 
+JOptionPane.showMessageDialog(this,"这么快就过了, 你好变态哦！","测试结果",JOptionPane.INFORMATION_MESSAGE);
+}
+}
+public void moveLeft(){ 
+if(startx<940 & starty <=500){ 
+startx=startx-unitSize;
+for(int i=0;i<x.length;i++){
+if(startx==x[i] & starty==y[i]){
+have=false;
+startx=startx+unitSize;
+}
+}
+if(have){
+repaint();
+}else{
+have=true;
+}
+}else{
+startx=startx-unitSize;
+} 
+if(startx==920 & starty==500){
+JOptionPane.showMessageDialog(this,"这么快就过了,你好变态哦！","测试结果",JOptionPane.INFORMATION_MESSAGE);
+} 
+}
+public void moveUp(){
+if(startx<940 & starty <=500){ 
+starty=starty-unitSize;
+for(int i=0;i<y.length;i++){
+if(startx==x[i] & starty==y[i]){
+have=false;
+starty=starty+unitSize;
+}
+}
+if(have){
+repaint();
+}else{
+have=true;
+}
+}else{
+starty=starty-unitSize;
+} 
+if(startx==920 & starty==500){
+JOptionPane.showMessageDialog(this,"这么快就过了,你好变态哦！","测试结果",JOptionPane.INFORMATION_MESSAGE);
+} 
+}
+public void moveDown(){ 
+if(startx<940 & starty <=500){ 
+starty=starty+unitSize;
+for(int i=0;i<y.length;i++){
+if(startx==x[i] & starty==y[i]){
+have=false;
+starty=starty-unitSize;
+}
+}
+if(have){
+repaint();
+}else{
+have=true;
+}
+}else{
+starty=starty-unitSize;
+}
+if(startx==920 & starty==500){
+JOptionPane.showMessageDialog(this,"这么快就过了,你好变态哦！","测试结果",JOptionPane.INFORMATION_MESSAGE);
+} 
+}
+}
+
+public class migong extends javax.swing.JFrame implements ActionListener,KeyListener{
+MiGong canvas=new MiGong();
+public migong() {
+this.setTitle("迷宫,请注意你的眼睛");
+addKeyListener(this); 
+add(canvas); 
+setVisible(true); 
+setSize(980,620); 
+}
+
+public static void main(String args[]) {
+java.awt.EventQueue.invokeLater(new Runnable() {
+public void run() {
+new migong().setVisible(true);
+}
+});
+}
+public void actionPerformed(ActionEvent e) {}
+public void keyTyped(KeyEvent e) {}
+public void keyReleased(KeyEvent e) {}
+public void keyPressed(KeyEvent e){
+switch(e.getKeyCode()){ 
+case KeyEvent.VK_DOWN:canvas.moveDown();break; 
+case KeyEvent.VK_LEFT:canvas.moveLeft();break; 
+case KeyEvent.VK_RIGHT:canvas.moveRight();break; 
+case KeyEvent.VK_UP:canvas.moveUp();break; 
+} 
+}
+}

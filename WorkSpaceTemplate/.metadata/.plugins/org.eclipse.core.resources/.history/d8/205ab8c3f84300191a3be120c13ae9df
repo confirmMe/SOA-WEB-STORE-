@@ -1,0 +1,10 @@
+package Test01;
+
+import Test02.en;
+
+public sin class te   {
+	 public te(){
+		 System.out.println("成员");
+	 }
+}
+	 

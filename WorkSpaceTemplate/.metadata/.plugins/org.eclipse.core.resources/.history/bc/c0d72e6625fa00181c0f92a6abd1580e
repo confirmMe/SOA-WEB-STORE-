@@ -1,0 +1,28 @@
+package com.taotao.controller;
+
+ 
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.service.ItemService;
+
+@Controller
+@RequestMapping("/rest")
+public class RestController {
+	
+	private ItemService itemService;
+	
+	@RequestMapping("/item/query/item/desc/{id}")
+	public TaotaoResult ShowDesc(@PathVariable Long id){
+		return itemService.ShowDesc(id);
+	}
+	
+	
+	
+	
+	
+
+}

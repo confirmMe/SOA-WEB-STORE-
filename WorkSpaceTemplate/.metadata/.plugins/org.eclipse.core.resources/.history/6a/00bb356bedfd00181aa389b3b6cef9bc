@@ -1,0 +1,7 @@
+package com.taotao.rest.service;
+
+import com.taotao.rest.service.ItemLoadService;
+
+public class ItemLoadServiceImpl implements ItemLoadService {
+
+}

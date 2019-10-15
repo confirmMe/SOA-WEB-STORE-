@@ -1,0 +1,14 @@
+package Test01;
+
+public    class   te2   {
+ 
+	public static void setT(Person person){
+		 person.age+=10;
+		
+	}
+	public static void main(String[] args) {
+		Person person=new Person(10);
+		setT(person);
+		System.out.println(person.age);
+	}
+}

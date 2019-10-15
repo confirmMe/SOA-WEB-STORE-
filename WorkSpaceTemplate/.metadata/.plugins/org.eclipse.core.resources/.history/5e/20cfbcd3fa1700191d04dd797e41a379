@@ -1,0 +1,6 @@
+#jedis服务器的地址，端口需要在applicationContext-redis.xml中自行定义
+jedisIp=192.168.93.91
+#用户登录时的hkey
+USER_LOGIN_KEY=UserLogin
+#用户登录token保存的有效时间默认是30分钟
+USER_LOGIN_EXPIRE=1800

@@ -1,0 +1,26 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+public class 获取{
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+    String text="i want to find the high world";
+    String str="\\b[a-z]{3}\\b";//\\b�ǵ��ʱ߽磨06������ʽ14'30"��
+    Pattern p=Pattern.compile(str);
+    //�������װ�ɶ���
+    Matcher match=p.matcher(text);
+    //ͨ����������ȡƥ��������
+    while(match.find()){//����
+    
+    System.out.println(match.group());//�������г���ֻ��3���ַ�
+    System.out.println(match.start());
+    System.out.println(match.end());
+    }
+	}
+
+}

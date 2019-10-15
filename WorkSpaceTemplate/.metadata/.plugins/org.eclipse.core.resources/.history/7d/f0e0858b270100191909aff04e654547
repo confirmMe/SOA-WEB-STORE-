@@ -1,0 +1,6 @@
+#首页大广告位信息的redis的hash主键
+INDEX_CONTENT_REDIS_KEY=hashkey
+#左侧商品分类的redis的hash主键
+INDEX_CAT_REDIS_KEY=catKey
+
+REDIS_ITEM_EXPIRE=86400

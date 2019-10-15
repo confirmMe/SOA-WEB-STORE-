@@ -1,0 +1,91 @@
+package com.taotao.service.Impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.taotao.common.pojo.EUDataCat;
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.mapper.TbContentCategoryMapper;
+import com.taotao.pojo.TbContentCategory;
+import com.taotao.pojo.TbContentCategoryExample;
+import com.taotao.pojo.TbContentCategoryExample.Criteria;
+import com.taotao.service.ContentService;
+@Service
+public class ContentServiceImpl implements ContentService {
+
+	@Autowired
+	private TbContentCategoryMapper categoryMapper ;
+	@Override
+	public List<EUDataCat> catalogList(Long parentId) {
+		TbContentCategoryExample example=new TbContentCategoryExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andParentIdEqualTo(parentId);
+		List<TbContentCategory> list=categoryMapper.selectByExample(example);
+		List<EUDataCat> resultList=new ArrayList<>();
+		
+		for(TbContentCategory category:list){
+		EUDataCat cat=new EUDataCat();
+		cat.setId(category.getId());
+		cat.setText(category.getName());
+		cat.setState(category.getIsParent()?"closed":"open");
+		resultList.add(cat);
+		}
+		return resultList;
+		
+		
+		
+		
+    }
+	public TaotaoResult ContentCatSave(Long parentId, String name) {
+		//保存当前节点
+		TbContentCategory record=new TbContentCategory();
+		record.setName(name);
+		record.setParentId(parentId);
+		record.setSortOrder(1);
+		record.setStatus(1);
+		record.setCreated(new Date());
+		record.setUpdated(new Date());
+		record.setIsParent(false);
+		categoryMapper.insert(record);
+		//将该节点的父节点isparent置为true
+		TbContentCategory parentRecord=new TbContentCategory();
+		parentRecord.setId(parentId);
+		parentRecord.setUpdated(new Date());
+		parentRecord.setIsParent(true);
+		categoryMapper.updateByPrimaryKeySelective(parentRecord);
+		 
+		
+		return TaotaoResult.ok(record);
+		
+	}
+	@Override
+	public TaotaoResult ContentCatUpdate(Long id, String name) {
+		TbContentCategory category=categoryMapper.selectByPrimaryKey(id);
+		category.setName(name);
+		category.setUpdated(new Date());
+		categoryMapper.updateByPrimaryKey(category);
+		return TaotaoResult.ok();
+	}
+	@Override
+	public TaotaoResult ContentCatDelete(Long parentId, Long id) {
+		//删除该节点
+		categoryMapper.deleteByPrimaryKey(id) ;
+		
+		//判断该节点的根节点下是否还有子节点
+		TbContentCategoryExample example=new TbContentCategoryExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andParentIdEqualTo(parentId);
+		List<TbContentCategory> list=categoryMapper.selectByExample(example);
+		if(list.size()==0){
+			TbContentCategory category=	categoryMapper.selectByPrimaryKey(parentId);
+			category.setIsParent(false);
+			categoryMapper.updateByPrimaryKey(category);
+		}
+		return TaotaoResult.ok();
+	}
+
+}

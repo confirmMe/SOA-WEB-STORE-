@@ -1,0 +1,18 @@
+package sw;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+public class invo implements InvocationHandler{
+Object obj;
+public invo(Object obj) {
+	this.obj=obj;
+}
+ 
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		 
+		Object res=method.invoke(obj, args);
+		return res;
+	}
+
+}

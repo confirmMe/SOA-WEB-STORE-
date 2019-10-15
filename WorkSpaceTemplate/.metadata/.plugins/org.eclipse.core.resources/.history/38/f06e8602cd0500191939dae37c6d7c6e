@@ -1,0 +1,15 @@
+package test;
+
+public class test {
+
+	private test(){}
+	//将test的构造方法私有化
+	private  static test ysw;
+	public test getTets(){
+		if (ysw==null) {
+			ysw=new test();
+		}
+			return ysw;
+		
+	}
+}

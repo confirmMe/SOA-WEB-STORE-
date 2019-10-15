@@ -1,0 +1,8 @@
+package sw;
+
+public class test1  {
+
+	private test1() {
+		 
+	}
+}

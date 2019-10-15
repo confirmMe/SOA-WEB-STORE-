@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="" key="DirectorySelectionPage.lastParent_https://ysw-pc:8443/svn/YSW"/>
+	<item value="" key="DirectorySelectionPage.lastParent_https://ysw-pc:8443/svn/YSW/branches"/>
+	<item value="https://ysw-pc:8443/svn/YSW/branches" key="RepositorySelectionPage.lastRepository"/>
+	<section name="NewLocationWizard">
+		<list key="ConfigurationWizardMainPage.STORE_URL_ID">
+			<item value="https://ysw-PC:8443/svn/YSW/branches"/>
+			<item value=""/>
+			<item value="https://ysw-PC:8443/svn/YSW/"/>
+			<item value="https://PC-201311301552/svn/taotao-javaee16/"/>
+		</list>
+	</section>
+</section>

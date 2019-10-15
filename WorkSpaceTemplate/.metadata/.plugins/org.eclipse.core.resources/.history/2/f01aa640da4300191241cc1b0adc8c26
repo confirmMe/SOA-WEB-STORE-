@@ -1,0 +1,19 @@
+import java.util.HashMap;
+import java.util.Map;
+
+
+public  class Test{
+	public static int a=1;
+	public void change(){
+		int a=5;
+		this.a=a;
+		
+	}
+	public static void main(String[] args) {
+		 Test test=new Test();
+		 System.out.println(test.a);
+		 test.change();
+		 System.out.println(test.a);
+	}
+}
+

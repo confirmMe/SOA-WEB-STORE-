@@ -1,0 +1,24 @@
+package com.taotao.portal.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.taotao.portal.service.ShowAdverService;
+ 
+
+@Controller
+public class ItemController {
+	@Autowired
+    private ShowAdverService adverService;
+	
+	@RequestMapping("/index")
+	public String test(Model model){
+		adverService.ShowSmallAdverService(89l);
+		return "index";
+	}
+	
+	 
+	
+}

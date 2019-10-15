@@ -1,0 +1,11 @@
+package Test01;
+
+import Test02.en;
+
+public class te   {
+	protected int a=0;
+	protected void run ()  {
+		 
+	}
+}
+	 

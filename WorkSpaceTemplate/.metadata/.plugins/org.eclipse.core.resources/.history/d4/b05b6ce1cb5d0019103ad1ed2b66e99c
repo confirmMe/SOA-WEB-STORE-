@@ -1,0 +1,20 @@
+package sw;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+public class invoactionhandler implements InvocationHandler{
+	Object obj;
+public invoactionhandler(Object obj) {
+	// TODO Auto-generated constructor stub
+	this.obj=obj;
+}
+	 
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		System.out.println("start");
+		Object res= method.invoke(obj, args);
+		System.out.println("end");
+	    return res;
+	}
+
+}

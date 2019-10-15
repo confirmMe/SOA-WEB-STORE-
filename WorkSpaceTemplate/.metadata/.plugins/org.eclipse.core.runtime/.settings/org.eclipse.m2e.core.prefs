@@ -1,0 +1,8 @@
+eclipse.m2.WorkspacelifecycleMappingsLocation=D\:/workspaces-itcast/template/.metadata/.plugins/org.eclipse.m2e.core/lifecycle-mapping-metadata.xml
+eclipse.m2.defaultRuntime=MAVEN
+eclipse.m2.globalSettingsFile=E\:\\MAVEN\\apache-maven-3.6.0\\conf\\settings.xml
+eclipse.m2.runtimes=MAVEN
+eclipse.m2.runtimesNodes/MAVEN/location=E\:\\MAVEN\\apache-maven-3.6.0
+eclipse.m2.runtimesNodes/MAVEN/type=EXTERNAL
+eclipse.m2.userSettingsFile=E\:\\MAVEN\\apache-maven-3.6.0\\conf\\settings.xml
+eclipse.preferences.version=1

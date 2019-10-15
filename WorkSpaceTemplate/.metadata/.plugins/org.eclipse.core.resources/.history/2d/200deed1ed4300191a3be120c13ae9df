@@ -1,0 +1,8 @@
+package Test02;
+
+public class en {
+public static void main(String[] args) {
+	Test test=new Test();
+	test.tt();
+}
+}

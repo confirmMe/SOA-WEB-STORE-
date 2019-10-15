@@ -1,0 +1,12 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class Test {
+public static void main(String[] args) throws InterruptedException {
+	
+	 System.out.println(1);
+	 Test test=new Test();
+	 test.wait(100);
+	 System.out.println(2);
+}
+}

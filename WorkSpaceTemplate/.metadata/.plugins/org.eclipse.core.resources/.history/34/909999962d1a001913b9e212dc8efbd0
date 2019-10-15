@@ -1,0 +1,53 @@
+package com.taotao.portal.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.taotao.portal.pojo.CartItem;
+import com.taotao.portal.service.CartService;
+import com.taotao.portal.service.ShowAdverService;
+
+@Controller
+@RequestMapping("/cart")
+public class CartController {
+
+	@Autowired
+	private CartService cartService;
+	
+	@RequestMapping("/add/{id}")
+	public String addCartItem(@PathVariable Long id,
+			@RequestParam(defaultValue="1")Long num,
+			HttpServletRequest request,
+			HttpServletResponse response){
+		//向购物车中添加商品
+		try {	
+			 cartService.addCartItem(id, num, request, response);
+			 return "redirect:/cart/success.html";
+		} catch (Exception e) {
+			//异常状况下
+			 return "error";
+		}	 	
+	 
+	}
+	@RequestMapping("/success")
+	public String Show(){
+		return "cartSuccess";
+	}
+	@RequestMapping("/cart")
+	public String showCartItem(HttpServletRequest request ,Model model){
+		List<CartItem> cartList=cartService.getCartItemList(request);
+		model.addAttribute("cartList", cartList);
+		return "cart";
+		
+	}
+ 
+}

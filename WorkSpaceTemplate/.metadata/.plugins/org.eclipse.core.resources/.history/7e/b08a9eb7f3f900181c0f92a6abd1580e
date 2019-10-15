@@ -1,0 +1,19 @@
+package com.taotao.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/rest")
+public class RestController {
+	
+	@RequestMapping("/page")
+	public String loginSuccess(){
+		//登陆成功跳转
+		return "index";
+	}
+	
+	
+	
+
+}

@@ -1,0 +1,251 @@
+package com.taotao.service.Impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.ObjectUtils.Null;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.taotao.common.pojo.EUDataResult;
+import com.taotao.common.pojo.ItemParamList;
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.utils.IDUtils;
+import com.taotao.common.utils.JsonUtils;
+import com.taotao.mapper.TbItemCatMapper;
+import com.taotao.mapper.TbItemDescMapper;
+import com.taotao.mapper.TbItemMapper;
+import com.taotao.mapper.TbItemParamItemMapper;
+import com.taotao.mapper.TbItemParamMapper;
+import com.taotao.pojo.TbItem;
+import com.taotao.pojo.TbItemDesc;
+import com.taotao.pojo.TbItemDescExample;
+import com.taotao.pojo.TbItemExample;
+import com.taotao.pojo.TbItemParam;
+import com.taotao.pojo.TbItemParamExample;
+import com.taotao.pojo.TbItemParamExample.Criteria;
+import com.taotao.pojo.TbItemParamItem;
+import com.taotao.pojo.TbItemParamItemExample;
+import com.taotao.service.ItemService;
+ /**
+  * 
+  * <p>Title: ItemServiceImpl</p>
+  * <p>Description: </p>
+  * @author	阎述伟
+  * @date	2018年12月6日上午9:13:51
+  * @version 1.0
+  */
+@Service
+public class ItemServiceImpl implements ItemService {
+	@Autowired
+    private TbItemMapper tbitemMapper;
+	@Autowired
+	private TbItemDescMapper descMapper;
+	@Autowired
+	private TbItemParamMapper itemParamMapper;	
+	@Autowired
+	private TbItemCatMapper catMapper;
+	@Autowired
+	private TbItemParamItemMapper  itemParamItemMapper;
+	
+	public EUDataResult getItemList(int page, int rows) {
+		//获取商品列表
+		TbItemExample example=new TbItemExample();
+		PageHelper.startPage(page, rows);
+		List<TbItem> list=tbitemMapper.selectByExample(example);
+        
+		EUDataResult dataResult=new EUDataResult();
+		dataResult.setRows(list);
+		
+		PageInfo<TbItem> info=new PageInfo<>(list);
+		dataResult.setTotal(info.getTotal());
+ 
+		return dataResult;
+	}
+	public TaotaoResult addItem(TbItem item,String desc,String itemParams) throws Exception {
+		//增加商品
+		item.setId(IDUtils.getItemId());
+		item.setCreated(new Date());
+		item.setUpdated(new Date());
+		item.setStatus((byte) 1);
+		//商品信息1正常2下架3未知
+		tbitemMapper.insert(item);
+		
+        //增加商品的描述信息，商品描述信息与商品的基本信息是分开存储的
+		TbItemDesc record=new TbItemDesc();
+    	record.setItemId(item.getId());
+    	record.setItemDesc(desc);
+    	record.setCreated(new Date());
+    	record.setUpdated(new Date());
+    	descMapper.insert(record);
+    	
+    	//添加商品的规格参数
+    	
+    	if(itemParams!=null&&!itemParams.equals("[]")){
+        //当没有输入时,itemParams默认是[]
+        TbItemParamItem itemParamItem =new TbItemParamItem();
+        itemParamItem.setId(IDUtils.getItemId());
+        itemParamItem.setItemId(item.getId());
+        itemParamItem.setParamData(itemParams);
+        itemParamItem.setUpdated(new Date());
+        itemParamItem.setCreated(new Date());
+        
+    	itemParamItemMapper.insert(itemParamItem);
+    	}
+    	
+		return TaotaoResult.ok();
+	}
+	public EUDataResult getItemParam(int page, int rows) {
+		//获取规格参数列表
+		// TODO Auto-generated method stub
+		TbItemParamExample example=new TbItemParamExample();
+	    //设置分页插件
+		PageHelper.startPage(page, rows);
+		List<TbItemParam> list=itemParamMapper.selectByExampleWithBLOBs(example);//可以显示大文本对象
+		List<ItemParamList> resultList=new ArrayList<ItemParamList>();
+		for(TbItemParam test:list){
+			ItemParamList itemParamList=new ItemParamList();
+			itemParamList.setId(test.getId());
+			itemParamList.setItemCatId(test.getItemCatId());
+			itemParamList.setItemCatName(catMapper.selectByPrimaryKey(test.getItemCatId()).getName());
+			itemParamList.setParamData(test.getParamData());
+			itemParamList.setUpdated(test.getUpdated());
+			itemParamList.setCreated(test.getCreated());
+			resultList.add(itemParamList);
+			
+		}
+		
+		EUDataResult dataResult=new EUDataResult();
+		//由于是对TbItemParam对象进行的分页条件查询。所以只能获取TbItemParam的分页信息
+		//TbItemParam的数据条数与ItemParamList一致,Total信息无需改变
+		PageInfo<TbItemParam> info=new PageInfo<>(list);
+		dataResult.setTotal(info.getTotal());
+		dataResult.setRows(resultList);
+		return dataResult;
+		
+	}
+	@Override
+	public TaotaoResult showIsParam(Long itemCatId) {
+		//判断此类商品是否已经增加类目类
+		// TODO Auto-generated method stub
+		 
+		TbItemParamExample example=new TbItemParamExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andItemCatIdEqualTo(itemCatId);
+		List<TbItemParam> list=itemParamMapper.selectByExampleWithBLOBs(example);
+		if(list.isEmpty()){			
+			return TaotaoResult.ok();
+		}
+ 
+		return TaotaoResult.ok(list.get(0));
+	}
+	@Override
+	public TaotaoResult addItemParam(Long itemCatId, String paramData) {
+		//添加商品类目信息
+		TbItemParam itemParam=new TbItemParam();
+		itemParam.setId(IDUtils.getItemId());
+		itemParam.setItemCatId(itemCatId);
+		itemParam.setParamData(paramData);
+		itemParam.setUpdated(new Date());
+		itemParam.setCreated(new Date());
+		itemParamMapper.insert(itemParam);
+		return TaotaoResult.ok();
+	}
+	public TaotaoResult ShowDesc(Long id) {
+		//在修改商品中回显描述数据
+		TbItemDescExample example=new TbItemDescExample();
+		com.taotao.pojo.TbItemDescExample.Criteria criteria=example.createCriteria();
+		criteria.andItemIdEqualTo(id);
+		List<TbItemDesc> list=  descMapper.selectByExampleWithBLOBs(example);
+		if(!list.isEmpty()){
+		return TaotaoResult.ok(list.get(0));
+		}else{
+		return TaotaoResult.ok();
+		}
+	}
+	public TaotaoResult ShowParam(Long id) {
+		//在修改界面中回显商品规格信息
+		TbItemParamItemExample example=new TbItemParamItemExample();
+		com.taotao.pojo.TbItemParamItemExample.Criteria criteria =example.createCriteria();
+		criteria.andItemIdEqualTo(id);
+		List<TbItemParamItem> item=itemParamItemMapper.selectByExampleWithBLOBs(example);
+		if(!item.isEmpty()){
+		//容错条件必须要加,因为无法对空的List求get(0)
+		return TaotaoResult.ok(item.get(0));
+		}else{
+		return TaotaoResult.ok();
+		}
+	}
+	@Override
+	public TaotaoResult ItemUpdate(TbItem item, String desc, String itemParams, Long itemParamId) {
+		//更改商品信息
+		//更新商品表
+	    item.setUpdated(new Date());
+	    item.setStatus((byte) 1);
+	    item.setCreated(tbitemMapper.selectByPrimaryKey(item.getId()).getCreated());
+		tbitemMapper.updateByPrimaryKey(item);
+		
+		TbItemDesc itemDesc=new TbItemDesc();
+		itemDesc.setItemDesc(desc);
+		itemDesc.setItemId(item.getId());
+		itemDesc.setUpdated(new Date());
+		if(descMapper.selectByPrimaryKey(item.getId())!=null){
+		//当数据库中存在之前存的在描述数据,更新		
+		    itemDesc.setCreated(descMapper.selectByPrimaryKey(item.getId()).getCreated());
+		    descMapper.updateByPrimaryKeyWithBLOBs(itemDesc);
+		}else{
+		//否则,插入
+			itemDesc.setCreated(new Date());
+			descMapper.insert(itemDesc);
+		}
+		
+		//更改商品规格信息
+		if(itemParamItemMapper.selectByPrimaryKey(itemParamId)!=null){
+		//如果
+	    TbItemParamItem itemParamItem=new TbItemParamItem();
+	    itemParamItem.setId(itemParamId);
+	    itemParamItem.setItemId(item.getId());
+	    itemParamItem.setParamData(itemParams);
+	    itemParamItem.setCreated(itemParamItemMapper.selectByPrimaryKey(itemParamId).getCreated());
+	    itemParamItem.setUpdated(new Date());
+	    itemParamItemMapper.updateByPrimaryKeyWithBLOBs(itemParamItem);
+		}
+		return TaotaoResult.ok();
+	}
+	@Override
+	public TaotaoResult ItemDelete(List<Long> params) {
+		//根据商品ID删除多个商品
+		for(Long id:params){
+		tbitemMapper.deleteByPrimaryKey(id);
+		}
+		return TaotaoResult.ok();
+	}
+	@Override
+	public TaotaoResult ItemInstock(List<Long> params) {
+		// 批量下架商品
+		for(Long id:params){
+			TbItem item=tbitemMapper.selectByPrimaryKey(id);
+			item.setStatus((byte) 2);
+			item.setUpdated(new Date());
+			tbitemMapper.updateByPrimaryKey(item);
+		}
+		return TaotaoResult.ok();
+	}
+	@Override
+	public TaotaoResult ItemReshelf(List<Long> params) {
+		// 批量上架商品
+		for(Long id:params){
+			TbItem item=tbitemMapper.selectByPrimaryKey(id);
+			item.setStatus((byte) 1);
+			item.setUpdated(new Date());
+			tbitemMapper.updateByPrimaryKey(item);
+		}
+		return TaotaoResult.ok();
+	}
+ 
+	
+
+}

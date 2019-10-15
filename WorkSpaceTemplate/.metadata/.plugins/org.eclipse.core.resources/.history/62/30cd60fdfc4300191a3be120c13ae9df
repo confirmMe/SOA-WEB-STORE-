@@ -1,0 +1,13 @@
+package Test01;
+
+public final class te2 extends te{
+	public te2(){
+		super();
+		System.out.println(2);
+	}
+    public static void main(String[] args) {
+		 
+	   te2 w=new te2();
+		
+	}
+}

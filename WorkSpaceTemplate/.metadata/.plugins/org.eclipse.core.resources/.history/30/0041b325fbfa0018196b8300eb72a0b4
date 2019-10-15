@@ -1,0 +1,14 @@
+package com.taotao.service.Impl;
+
+import com.taotao.common.pojo.EUDataCat;
+import com.taotao.service.ContentService;
+
+public class ContentServiceImpl implements ContentService {
+
+	@Override
+	public EUDataCat catalogList(Long parentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

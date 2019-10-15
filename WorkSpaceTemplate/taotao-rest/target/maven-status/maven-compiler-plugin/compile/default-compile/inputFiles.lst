@@ -1,0 +1,14 @@
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\dao\JedisClient.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\service\ItemLoadService.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\dao\Impl\JedisClientSingle.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\controller\ItemController.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\service\ItemService.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\controller\ItemLoadController.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\service\Impl\ItemServiceImpl.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\pojo\CatResult.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\service\ItemCatService.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\controller\ItemCatController.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\dao\Impl\JedisClientCluster.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\pojo\CatNode.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\service\Impl\ItemCatServiceImpl.java
+E:\WorkSpaceTemplate\taotao-rest\src\main\java\com\taotao\rest\service\Impl\ItemLoadServiceImpl.java

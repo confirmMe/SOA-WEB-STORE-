@@ -1,0 +1,17 @@
+
+public class 正则应用简化 {
+
+	/**
+	 * @param args
+	 */
+	 static public void main(String[] args) {
+		// TODO Auto-generated method stub
+     String text="我我我..是.大..帅帅帅.比比比比";
+     String a=text.replaceAll(".+","");
+     String b=a.replaceAll("(.)\\1+", "$1");
+     System.out.println(a);
+     System.out.println(b);
+    		 
+	}
+
+}

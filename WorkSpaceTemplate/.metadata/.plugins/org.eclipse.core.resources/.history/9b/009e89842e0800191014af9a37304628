@@ -1,0 +1,5 @@
+BigAdver=89
+#加载广告位调用的业务ip
+LOadRestIp=http://localhost:8081/rest/content/list
+#加载搜索服务调用的业务ip
+LoadSearchIp=http://localhost:8083/search/query

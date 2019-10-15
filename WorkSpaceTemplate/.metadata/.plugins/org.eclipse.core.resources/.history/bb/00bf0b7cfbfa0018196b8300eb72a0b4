@@ -1,0 +1,17 @@
+package com.taotao.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.taotao.common.pojo.EUDataCat;
+@RequestMapping("/content")
+public class ContentController {
+
+	
+	@RequestMapping("/category/list")
+	@ResponseBody
+	public EUDataCat ContentCatList(@RequestParam (value="id",defaultValue=0) Long parentId){
+		
+	}
+}

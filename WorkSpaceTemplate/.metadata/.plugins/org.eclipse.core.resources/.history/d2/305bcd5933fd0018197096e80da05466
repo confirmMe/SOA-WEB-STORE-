@@ -1,0 +1,11 @@
+package com.taotao.service;
+
+import java.util.List;
+
+import com.taotao.common.pojo.EUDataCat;
+import com.taotao.common.pojo.TaotaoResult;
+
+public interface ContentService {
+   List<EUDataCat> catalogList(Long parentId);
+   TaotaoResult  ContentCatSave(Long parentId,String name);
+}

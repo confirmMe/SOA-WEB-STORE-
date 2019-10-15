@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=taotao-rest/src\/main\/java&lt;com.taotao.rest.service{ItemLoadService.java[ItemLoadService" modifiers="513" timestamp="1544968390037"/>
+<typeInfo handle="=taotao-portal/src\/main\/java&lt;com.taotao.portal.service{ShowAdverService.java[ShowAdverService" modifiers="513" timestamp="1545738092908"/>
+<typeInfo handle="=taotao-search/src\/main\/java&lt;com.taotao.search.dao{ItemSearchDao.java[ItemSearchDao" modifiers="513" timestamp="1545529355999"/>
+<typeInfo handle="=taotao-portal/src\/main\/java&lt;com.taotao.portal.service{SearchService.java[SearchService" modifiers="513" timestamp="1545738976041"/>
+<typeInfo handle="=taotao-sso/src\/main\/java&lt;com.taotao.sso.service{UserService.java[UserService" modifiers="513" timestamp="1547549201934"/>
+<typeInfo handle="=taotao-sso/C:\/Program Files\/Java\/jdk1.8.0_77\/jre\/lib\/rt.jar&lt;java.nio.file.attribute(UserDefinedFileAttributeView.class[UserDefinedFileAttributeView" modifiers="1537" timestamp="1526780400808"/>
+<typeInfo handle="=taotao-portal/src\/main\/java&lt;com.taotao.portal.service{CartService.java[CartService" modifiers="513" timestamp="1547722043889"/>
+<typeInfo handle="=taotao-order/src\/main\/java&lt;com.taotao.order.service{CreateOrderService.java[CreateOrderService" modifiers="513" timestamp="1547898778487"/>
+<typeInfo handle="=taotao-portal/src\/main\/java&lt;com.taotao.portal.service{OrderService.java[OrderService" modifiers="513" timestamp="1547971029653"/>
+</typeInfoHistroy>

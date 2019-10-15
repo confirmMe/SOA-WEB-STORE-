@@ -1,0 +1,9 @@
+package test;
+
+public class Snippet {
+	public static void main(String[] args) {
+			int[] arr={1,6,2,4,5};
+		System.out.println(getWater4(arr));
+		}
+}
+

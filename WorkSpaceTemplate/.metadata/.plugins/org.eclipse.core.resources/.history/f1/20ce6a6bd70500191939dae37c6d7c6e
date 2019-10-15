@@ -1,0 +1,18 @@
+package test;
+
+public class test {
+
+	private test(){}
+	//将test的构造方法私有化
+	
+	private  static test ysw;
+	public synchronized test getTets(){
+		//使用synchronized关键字将方法加同步锁
+		if (ysw==null) {
+			ysw=new test();
+			System.out.println("开始初始化");
+		}
+			return ysw;
+		
+	}
+}

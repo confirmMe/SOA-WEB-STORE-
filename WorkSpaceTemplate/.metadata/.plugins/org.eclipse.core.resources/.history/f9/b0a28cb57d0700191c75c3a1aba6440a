@@ -1,0 +1,50 @@
+package com.taotao.rest.service.Impl;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.utils.JsonUtils;
+import com.taotao.mapper.TbItemMapper;
+import com.taotao.pojo.TbItem;
+import com.taotao.rest.dao.JedisClient;
+import com.taotao.rest.service.ItemService;
+@Service
+public class ItemServiceImpl implements ItemService{
+    @Autowired
+	private TbItemMapper itemMapper;
+    @Autowired
+    private JedisClient client;
+    
+    @Value("${ITEM-SEARCH-INFO}")
+    private String base;
+    
+	public TaotaoResult getItemInfo(Long id) {
+		String baseResult=client.hget(base, id.toString());
+		//如果在redis服务器找到结果
+		try {
+			if(!StringUtils.isBlank(baseResult)){
+			TbItem baseItem=JsonUtils.jsonToPojo(baseResult, TbItem.class);
+			return TaotaoResult.ok(baseItem);
+		}
+		} catch (Exception e) {
+			 e.printStackTrace();
+		}
+		
+		TbItem item=itemMapper.selectByPrimaryKey(id);
+		
+		try {
+			String json=JsonUtils.objectToJson(item);
+			client.hset(base, id.toString(),json);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return TaotaoResult.ok(item);
+		
+
+	}
+
+}

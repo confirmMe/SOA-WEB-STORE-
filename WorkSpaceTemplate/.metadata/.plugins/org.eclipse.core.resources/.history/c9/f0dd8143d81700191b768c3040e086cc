@@ -1,0 +1,31 @@
+package test;
+
+import java.util.List;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.taotao.mapper.TbUserMapper;
+import com.taotao.pojo.TbUser;
+import com.taotao.pojo.TbUserExample;
+import com.taotao.pojo.TbUserExample.Criteria;
+
+
+
+@Service
+public class TestJson {
+	@Autowired
+	private TbUserMapper user;
+    @Test
+	public void test(){
+    	TbUserExample example=new TbUserExample();
+    	Criteria criteria=example.createCriteria();
+    	criteria.andUsernameEqualTo("2");
+		List<TbUser> list=user.selectByExample(example);
+		System.out.println(list);
+    	boolean ysw=MyStringUtils.isEmptyList(list);
+    
+    	System.out.println(ysw);
+	}
+}

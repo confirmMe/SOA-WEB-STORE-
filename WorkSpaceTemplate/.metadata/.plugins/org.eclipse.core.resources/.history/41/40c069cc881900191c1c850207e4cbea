@@ -1,0 +1,55 @@
+package com.taotao.portal.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.portal.pojo.CartItem;
+import com.taotao.portal.service.CartService;
+
+@Controller
+@RequestMapping("/cart")
+public class CartController {
+
+	@Autowired
+	private CartService cartService;
+	
+	@RequestMapping("/add/{id}")
+	public String addCartItem(@PathVariable Long id,
+			@RequestParam(defaultValue="1")Long num,
+			HttpServletRequest request,
+			HttpServletResponse response){
+		TaotaoResult result=new TaotaoResult();
+		try {
+			
+			 result=cartService.addCartItem(id, num, request, response);
+			 return "cartSuccess";
+		} catch (Exception e) {
+			//异常状况下
+			 result=TaotaoResult.build(400, "error");
+			 return "error";
+		}
+		 
+	
+	 
+	}
+	@RequestMapping("/show")
+	public String show(HttpServletRequest request){
+		//用于测试，在控制台上打印存储在cookie中的信息
+		List<CartItem> list=cartService.getCartItemList(request);
+		System.out.println("条数"+list.size());
+		for(CartItem cartItem:list){
+			System.out.println(cartItem.getTitle());
+			System.out.println(cartItem.getNum());
+		}
+		return "error";
+	}
+}

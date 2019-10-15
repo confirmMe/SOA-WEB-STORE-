@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+
+public class qqcheck {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stu
+		Scanner rq=new Scanner(System.in);
+		String qq=rq.nextLine();
+		qqcheck(qq);
+	}
+public static void qqcheck(String qq){
+	int len =qq.length();
+	if(len>=5&&len<=10){
+		if(!qq.startsWith("0")){
+			try{
+			long l=Long.parseLong(qq);
+			System.out.println("成功");
+			}
+			catch(NumberFormatException e){
+				System.out.println("含有非法字符");
+			}
+		}else{
+			System.out.println("不能用0开头");
+		}
+	}
+	else{
+		System.out.println("长度错误");
+	}
+	
+}
+}

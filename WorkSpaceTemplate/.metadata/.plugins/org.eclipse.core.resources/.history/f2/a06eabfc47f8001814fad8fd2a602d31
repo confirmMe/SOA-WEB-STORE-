@@ -1,0 +1,9 @@
+#ftp相关设置
+#ftp的IP地址
+ftp_address=192.168.93.90
+ftp_port=21
+ftp_username=ftpuser
+ftp_password=ftpuser
+ftp_basepath=/home/ftpuser/www/images
+
+

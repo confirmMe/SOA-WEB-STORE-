@@ -1,0 +1,11 @@
+package com.taotao.search.service;
+
+public class ItemServiceImpl implements ItemService {
+
+	@Override
+	public void addItemService() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,22 @@
+package Test01;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.soap.Node;
+
+public class Tesrt {
+ 
+public static  class Node{
+			 private Node left;
+			 private Node right;
+			 private int value;
+			 public Node(int value){
+				 this.value=value;
+			 }
+		 }
+ 
+public  static  void main (String [] args){
+   
+}
+}

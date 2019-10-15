@@ -1,0 +1,12 @@
+package Test02;
+
+import org.omg.Messaging.SyncScopeHelper;
+
+public class en {
+ public static void main(String[] args) {
+	 String a="abd";
+	 System.out.println(a.charAt(1));
+}
+ 
+
+}

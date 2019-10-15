@@ -1,0 +1,47 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+public class 正则应用爬虫原理 {
+
+	/**
+	 * @param args
+	 * @throws IOException 
+	 */
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+    List<String> list1=pachong();
+    for(String text:list1){
+    	System.out.println(text);
+    }
+    
+	}
+	public static List<String > pachong() throws IOException{
+		//BufferedReader reader=new BufferedReader(new FileReader("C:\\Users/Administrator/Desktop/1.txt"));
+		URL url=new URL("https://www.duba.com/?f=liebao");
+		BufferedReader reader=new BufferedReader(new InputStreamReader(url.openStream()));
+		String str="\\b[a-zA-Z-]{5}\\b";
+		Pattern p=Pattern.compile(str);
+		
+		List<String> list=new ArrayList<String>();
+		
+		String line=null;
+		while((line=reader.readLine())!=null){
+		
+			Matcher m=p.matcher(line);
+			while(m.find()){
+				list.add(m.group());
+			}
+			
+			
+		}
+		return list;
+	}
+
+}

@@ -1,0 +1,4 @@
+#jedis服务器的地址，端口需要在applicationContext-redis.xml中自行定义
+jedisIp=192.168.93.91
+#在订单中需要唯一标识的主键不能重复，利用redis的incr命令，保证全局无冲突
+ORDER_GEN_KEY=ORDER_GEN_KEY

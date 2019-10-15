@@ -1,0 +1,16 @@
+package Test02;
+
+import org.omg.Messaging.SyncScopeHelper;
+
+import Test01.te;
+
+public class en extends te{
+ public static void main(String[] args) {
+//	te e=new te();
+	en e =new en();
+	e.
+	
+}
+ 
+
+}

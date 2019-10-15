@@ -1,0 +1,12 @@
+import java.lang.reflect.Proxy;
+
+public class Test{
+	
+	
+	public static void main(String[] args) {
+		
+		Person  person=new Student();
+		InvoAction h=new InvoAction(person);
+		Person en=Proxy.newProxyInstance(Person.class.getClassLoader(), Class[] {Person.class}, h)
+	}
+}

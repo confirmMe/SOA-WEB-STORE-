@@ -1,0 +1,7 @@
+package com.taotao.sso.service.Impl;
+
+import com.taotao.sso.service.UserService;
+
+public class UserServiceImpl implements UserService {
+
+}

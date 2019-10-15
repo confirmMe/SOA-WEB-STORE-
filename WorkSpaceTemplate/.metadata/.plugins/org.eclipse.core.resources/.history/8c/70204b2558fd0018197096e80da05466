@@ -1,0 +1,139 @@
+package com.taotao.service.Impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.taotao.common.pojo.EUDataCat;
+import com.taotao.common.pojo.EUDataResult;
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.mapper.TbContentCategoryMapper;
+import com.taotao.mapper.TbContentMapper;
+import com.taotao.pojo.TbContent;
+import com.taotao.pojo.TbContentCategory;
+import com.taotao.pojo.TbContentCategoryExample;
+import com.taotao.pojo.TbContentExample;
+import com.taotao.pojo.TbContentCategoryExample.Criteria;
+import com.taotao.service.ContentService;
+@Service
+public class ContentServiceImpl implements ContentService {
+
+	@Autowired
+	private TbContentCategoryMapper categoryMapper ;
+	@Autowired
+	private TbContentMapper contentMapper;
+	public void deleteAll(Long id){
+		//批量删除的递归算法
+		//执行时会批量删除parentId为id的数据
+		//但是不会对值为id的数据进行删除
+		//需要在主程序下额外加一条categoryMapper.deleteByPrimaryKey(id);
+		TbContentCategoryExample  example=new TbContentCategoryExample();
+		Criteria  criteria= example.createCriteria();
+		criteria.andParentIdEqualTo(id);
+		List<TbContentCategory> list=categoryMapper.selectByExample(example);
+		for(TbContentCategory cat:list){
+			if(cat.getIsParent()){
+				deleteAll(cat.getId());			
+			} 			
+			categoryMapper.deleteByPrimaryKey(cat.getId()); 
+		}
+	}
+	@Override
+	public List<EUDataCat> catalogList(Long parentId) {
+		TbContentCategoryExample example=new TbContentCategoryExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andParentIdEqualTo(parentId);
+		List<TbContentCategory> list=categoryMapper.selectByExample(example);
+		List<EUDataCat> resultList=new ArrayList<>();
+		
+		for(TbContentCategory category:list){
+		EUDataCat cat=new EUDataCat();
+		cat.setId(category.getId());
+		cat.setText(category.getName());
+		cat.setState(category.getIsParent()?"closed":"open");
+		resultList.add(cat);
+		}
+		return resultList;
+		
+		
+		
+		
+    }
+	public TaotaoResult ContentCatSave(Long parentId, String name) {
+		//保存当前节点
+		TbContentCategory record=new TbContentCategory();
+		record.setName(name);
+		record.setParentId(parentId);
+		record.setSortOrder(1);
+		record.setStatus(1);
+		record.setCreated(new Date());
+		record.setUpdated(new Date());
+		record.setIsParent(false);
+		categoryMapper.insert(record);
+		//将该节点的父节点isparent置为true
+		TbContentCategory parentRecord=new TbContentCategory();
+		parentRecord.setId(parentId);
+		parentRecord.setUpdated(new Date());
+		parentRecord.setIsParent(true);
+		categoryMapper.updateByPrimaryKeySelective(parentRecord);
+		 
+		
+		return TaotaoResult.ok(record);
+		
+	}
+	@Override
+	public TaotaoResult ContentCatUpdate(Long id, String name) {
+		TbContentCategory category=categoryMapper.selectByPrimaryKey(id);
+		category.setName(name);
+		category.setUpdated(new Date());
+		categoryMapper.updateByPrimaryKey(category);
+		return TaotaoResult.ok();
+	}
+	@Override
+	public TaotaoResult ContentCatDelete( Long id) {
+		//删除该节点
+		TbContentCategory contentCategory =categoryMapper.selectByPrimaryKey(id);
+		Long parentId =contentCategory.getParentId();
+		//调用批量删除算法
+		deleteAll(id);
+		categoryMapper.deleteByPrimaryKey(id);
+		//判断该节点的根节点下是否还有子节点
+		TbContentCategoryExample Rootexample=new TbContentCategoryExample();
+		Criteria Rootcriteria=Rootexample.createCriteria();
+		Rootcriteria.andParentIdEqualTo(parentId);
+		List<TbContentCategory> rootlist=categoryMapper.selectByExample(Rootexample);
+		if(rootlist.size()==0){
+			TbContentCategory category=	categoryMapper.selectByPrimaryKey(parentId);
+			category.setIsParent(false);
+			category.setUpdated(new Date());
+			categoryMapper.updateByPrimaryKey(category);
+		}
+				
+		return TaotaoResult.ok();
+	}
+	@Override
+	public EUDataResult showContentList(Long categoryId, int page, int rows) {
+		EUDataResult dataResult=new EUDataResult();
+		TbContentExample example=new TbContentExample();
+		com.taotao.pojo.TbContentExample.Criteria criteria=example.createCriteria();
+		criteria.andCategoryIdEqualTo(categoryId);
+		
+		PageHelper.startPage(page, rows);
+		List<TbContent> list=contentMapper.selectByExample(example);
+		dataResult.setRows(list);
+		
+		PageInfo<TbContent> info=new PageInfo<>(list);
+		dataResult.setTotal(info.getTotal());
+		
+		return dataResult;
+		 
+		
+	}
+	
+
+}

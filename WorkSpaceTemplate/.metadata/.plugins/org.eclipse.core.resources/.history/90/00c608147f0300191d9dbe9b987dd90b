@@ -1,0 +1,8 @@
+#jedis服务器的地址，端口需要在applicationContext-redis.xml中自行定义
+jedisIp=192.168.93.91
+#首页大广告位信息的redis的hash主键
+INDEX_CONTENT_REDIS_KEY=adverKey
+#左侧商品分类的redis的hash主键
+INDEX_CAT_REDIS_KEY=catKey
+#左侧商品分类的redis的默认第二主键
+INDEX_CAT_REDIS_HASH_KEY=catFlag

@@ -1,0 +1,18 @@
+package com.taotao.portal.service.Impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.utils.HttpClientUtil;
+import com.taotao.pojo.TbContent;
+
+public class ShowAdverService implements com.taotao.portal.service.ShowAdverService {
+
+	
+	
+
+}

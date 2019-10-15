@@ -1,0 +1,14 @@
+package Test01;
+
+public class Person {
+ 
+		 public static void main(String[] args) {
+			String y="welcome to dalian ddd";
+			String [] res=y.split(" ");
+			for(int i=0;i<res.length;i++){
+				System.out.println(res[i]);
+			}
+		}
+		
+
+}

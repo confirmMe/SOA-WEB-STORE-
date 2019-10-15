@@ -1,0 +1,7 @@
+package com.taotao.service;
+
+import com.taotao.common.pojo.EUDataCat;
+
+public interface ContentService {
+     public EUDataCat catalogList(Long parentId);
+}

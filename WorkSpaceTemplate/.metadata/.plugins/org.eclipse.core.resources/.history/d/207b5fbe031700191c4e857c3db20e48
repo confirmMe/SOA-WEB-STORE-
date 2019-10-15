@@ -1,0 +1,41 @@
+package com.taotao.sso.service.Impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.mapper.TbUserMapper;
+import com.taotao.pojo.TbUser;
+import com.taotao.pojo.TbUserExample;
+import com.taotao.pojo.TbUserExample.Criteria;
+import com.taotao.sso.service.UserService;
+
+public class UserServiceImpl implements UserService {
+
+ 	@Autowired
+    private TbUserMapper userMapper;
+ 		
+	public TaotaoResult CheckUser( String param,Integer type) {
+        TbUserExample example=new TbUserExample();
+        Criteria criteria =example.createCriteria();
+        
+        if(type==1){
+        	criteria.andUsernameEqualTo(param);
+        }
+        if(type==2){
+        	criteria.andPhoneEqualTo(param);
+        }
+        if(type==3){
+        	criteria.andEmailEqualTo(param);
+        }
+        List<TbUser> list= userMapper.selectByExample(example);
+        if(list!=null&&list.size()>0){
+        	return TaotaoResult. ok(false);
+        }else{
+        	return TaotaoResult.ok(true);
+        }
+	
+	}
+
+}

@@ -1,0 +1,67 @@
+package com.taotao.service.Impl;
+
+
+import java.util.HashMap;
+import java.util.Map;
+import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.taotao.common.utils.FtpUtil;
+import com.taotao.common.utils.IDUtils;
+import com.taotao.service.PictureService;
+@Service
+public class PictureServiceImpl implements PictureService {
+
+	@Value("${ftp_address}")
+	private String ftp_address;
+	@Value("${ftp_port}")
+	private int ftp_port;
+	@Value("${ftp_username}")
+	private String ftp_username;
+	@Value("${ftp_password}")
+	private String ftp_password;
+	@Value("${ftp_basepath}")
+	private String ftp_basepath;
+	//用于图片的返回url中
+	@Value("${image_path}")
+	private String image_path;
+	
+	//文件在服务器中的相对路径
+	private String filepath=new DateTime().toString("/yyyy/MM//dd");
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map uploadPicture(MultipartFile picfile) {
+		// TODO Auto-generated method stub
+		Map map=new HashMap<>();
+		try {
+			//生成新文件名
+			String oldName=picfile.getOriginalFilename();
+			String newName=IDUtils.getImageName();
+			newName=newName+oldName.substring(oldName.lastIndexOf("."));//获取文件后缀名
+			
+			boolean result=FtpUtil.uploadFile(ftp_address, ftp_port, ftp_username, ftp_password, ftp_basepath, 
+					filepath, newName, picfile.getInputStream());
+			
+			if(!result){
+				//失败
+				map.put("error", 1);
+				map.put("message", "失败");
+			}else{
+				map.put("error", 0);
+				map.put("url", image_path+filepath+"/"+newName);
+			}
+			return map;
+		} catch (Exception e) {
+		
+				map.put("error", 1);
+				map.put("message", "异常");
+				return map;
+		}
+	
+		
+	}
+
+}

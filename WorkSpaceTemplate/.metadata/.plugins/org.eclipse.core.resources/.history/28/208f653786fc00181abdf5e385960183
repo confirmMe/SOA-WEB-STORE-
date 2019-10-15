@@ -1,0 +1,38 @@
+package com.taotao.rest.controller;
+
+public class test {
+
+	
+	public void test(){
+		String ysw="{
+        \"testdatason1\": \"97895455\",
+        \"testdatason2\": 3,
+        \"testData2\": [
+        {
+            \"testshuzu1\": \"11\"
+        },
+        {
+            \"testshuzu2\": \"14\"
+        },
+        null,
+        {
+            \"testshuzu3\": \"16\"
+        }
+    ]
+}";
+	
+	
+//	String soapXML =
+//			"<?xml version=\"1.0\" encoding=\"utf-8\"?>"+
+//	"<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"+
+//	  "<soap:Body>"+
+//	    "<getMobileCodeInfo xmlns=\"http://WebXml.com.cn/\">"+
+//	       "<mobileCode></mobileCode>"+
+//	       "<userID></userID>"+
+//	    "</getMobileCodeInfo>"+
+//	  "</soap:Body>"+
+//	"</soap:Envelope>";
+//		
+		
+	}
+}

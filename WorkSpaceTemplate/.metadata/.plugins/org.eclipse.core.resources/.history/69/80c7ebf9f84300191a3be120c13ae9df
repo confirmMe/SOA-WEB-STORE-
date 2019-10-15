@@ -1,0 +1,9 @@
+package Test01;
+
+public final class te2 implements te{
+    public static void main(String[] args) {
+		te e=new te();
+	 
+		
+	}
+}

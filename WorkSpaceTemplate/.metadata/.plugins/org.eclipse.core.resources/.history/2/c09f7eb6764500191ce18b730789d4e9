@@ -1,0 +1,27 @@
+import java.util.TreeSet;
+
+
+public class 正则应用网址排序 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+    String ip_str="192.168.56.1  3.3.3.3 127.0.0.1  105.7.10.5";
+    ip_str=ip_str.replaceAll("(\\d+)","00$1");
+    //将所有数字前都加上00
+    ip_str=ip_str.replaceAll("0*(\\d{3})","$1");
+    //保留所有字段的后三位（09正则表达式10'）
+    String[] str=ip_str.split(" +");
+    TreeSet<String> tree=new TreeSet<String>();
+    for(String ip:str){
+    	tree.add(ip);
+    }
+    for(String ips:tree){
+    	System.out.println(ips.replaceAll("0*(\\d+)", "$1"));
+    	//还原，将之前加的0去掉
+    }
+	}
+
+}

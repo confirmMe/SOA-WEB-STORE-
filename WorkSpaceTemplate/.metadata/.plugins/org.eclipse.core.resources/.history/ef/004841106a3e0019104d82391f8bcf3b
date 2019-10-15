@@ -1,0 +1,12 @@
+
+public class Main {
+	private Class en;
+	public   void tete(){
+		System.out.println(en.hashCode());
+		en.te01();
+	}
+public static void main(String[] args) {
+     Main main=new Main();
+     main.tete();
+}
+}

@@ -1,0 +1,12 @@
+package Test01;
+
+import Test02.Test;
+
+public class te {
+	
+ public static void main(String[] args) {
+	Test test=new Test();
+	 
+	
+}
+}

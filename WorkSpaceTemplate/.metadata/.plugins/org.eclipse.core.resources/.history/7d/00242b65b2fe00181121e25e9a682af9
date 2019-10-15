@@ -1,0 +1,28 @@
+package com.taotao.common.utils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 
+ * <p>Title: ListUtils</p>
+ * <p>Description: </p>
+ * @author	阎述伟
+ * @date	2018年12月8日上午10:58:48
+ * @version 1.0
+ */
+
+public class ListUtils {
+	
+	public  static List<Long> IdsToList(String ids){
+		//将前端返回的ids字符串封装成Long类型的List
+		//ids标准格式为:"1,2,3,4"
+		String[] ParamIds=ids.split(",");
+		List<Long> list=new ArrayList<>();
+		for(String ParamId:ParamIds){
+			list.add(Long.parseLong(ParamId));
+		}
+		return list;
+	}
+
+}

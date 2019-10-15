@@ -1,0 +1,129 @@
+
+package Game;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+
+import Game.PlanetGame.keyMonitor;
+
+import depend.GameP;
+
+public class Plane extends GameObject{
+
+private boolean down,left,right,up;
+private boolean live=true;//true生false死
+
+
+public Plane(double x, double y, String path,double speed) {
+	super();
+	this.x = x;
+	this.y = y;
+	this.speed=speed;
+	this.img = GameP.getP(path);
+	this.width=img.getWidth(null);
+	this.height=img.getHeight(null);
+}
+
+public void draw(Graphics g){
+	if(live){//如果飞机存在
+	g.drawImage(img, (int)x, (int)y, null);
+	move0();
+	move1();
+	move2();
+	move3();
+	}
+	
+}
+
+public void move0(){
+	  if(10<x){
+        if(left)
+	       x-=speed;             
+           }
+        else{
+	      x=11;
+            }
+}
+public void move1(){
+     if(x<330){
+          if(right)
+	      x+=speed;
+                   
+              }
+          else{
+	      x=321;
+              }
+}
+public void move2(){
+     if(30<y){
+          if(up)
+	      y-=speed;
+                
+             }
+          else{
+	      y=31;
+              }
+}
+public void move3(){
+     if(y<820){
+          if(down)
+	      y+=speed;
+
+                  
+              }
+          else{
+	      y=810;
+              }
+	}                
+	
+
+public void anxia(KeyEvent e){
+	switch (e.getKeyCode()) {
+    case KeyEvent.VK_LEFT: left=true;//VK_LEFT就是37
+	break;
+    case KeyEvent.VK_RIGHT: right=true;
+    break;
+    case KeyEvent.VK_UP: up=true;
+    break;
+    case KeyEvent.VK_DOWN: down=true;
+    break;
+
+    default:
+	break;
+	}
+}
+/*
+ * 如果不设置弹起
+ * 小球会沿着之前运动的方向不受控制的无限运动下去
+ */
+	public void tanqi(KeyEvent e){
+		switch (e.getKeyCode()) {
+	    case KeyEvent.VK_LEFT: left=false;//VK_LEFT就是37
+		break;
+	    case KeyEvent.VK_RIGHT: right=false;
+	    break;
+	    case KeyEvent.VK_UP: up=false;
+	    break;
+	    case KeyEvent.VK_DOWN: down=false;
+	    break;
+
+	    default:
+		break;
+	}
+}
+public void plane(){
+	
+}
+
+public boolean isLive() {
+	return live;
+}
+
+public void setLive(boolean live) {
+	this.live = live;
+}
+
+
+}

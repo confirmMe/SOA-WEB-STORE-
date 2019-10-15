@@ -1,0 +1,8 @@
+package Test01;
+
+public abstract  class   te2  extends te{
+	public void te2() {
+		
+	}
+		 
+}

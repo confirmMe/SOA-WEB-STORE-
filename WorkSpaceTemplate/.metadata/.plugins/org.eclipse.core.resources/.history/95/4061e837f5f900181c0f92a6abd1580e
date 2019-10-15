@@ -1,0 +1,23 @@
+package com.taotao.controller;
+
+import javax.servlet.Servlet;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/rest")
+public class RestController {
+	
+	@RequestMapping("/page/index")
+	public String loginSuccess(){
+		//登陆成功跳转
+		return "index";
+	
+	}
+	
+	
+	
+
+}

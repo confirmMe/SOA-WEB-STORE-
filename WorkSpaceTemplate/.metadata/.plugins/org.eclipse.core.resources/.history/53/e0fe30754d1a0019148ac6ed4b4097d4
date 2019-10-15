@@ -1,0 +1,13 @@
+package test;
+
+import java.util.List;
+
+import com.taotao.common.utils.JsonUtils;
+import com.taotao.portal.pojo.CartItem;
+
+public class test {
+public static void main(String[] args) {
+	List<CartItem> list=JsonUtils.jsonToList(null, CartItem.class);
+	System.out.println(list.size()); 
+}
+}

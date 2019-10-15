@@ -1,0 +1,30 @@
+package com.taotao.rest.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+
+import com.taotao.common.utils.JsonUtils;
+import com.taotao.rest.pojo.CatNode;
+
+public class test {
+    	 
+ @Test
+	public void test(){
+		CatNode catNode=new CatNode();
+	     List<String> list=new ArrayList<>();
+	     list.add("y");
+	     list.add("s");
+	     list.add("w");
+	     
+	     catNode.setItem(list);
+	     catNode.setName("en");
+	     catNode.setUrl("--");
+	     
+	     String test=JsonUtils.objectToJson(catNode);
+	     System.out.println(test);
+        	
+		
+	}
+}

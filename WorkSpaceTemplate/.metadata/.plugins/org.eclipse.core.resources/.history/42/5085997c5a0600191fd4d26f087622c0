@@ -1,0 +1,9 @@
+package com.taotao.portal.service;
+
+import java.util.List;
+
+import com.taotao.common.pojo.SearchResult;
+
+public interface SearchService {
+      List<SearchResult> SearchFromSolr(String queryString ,Integer page);
+}

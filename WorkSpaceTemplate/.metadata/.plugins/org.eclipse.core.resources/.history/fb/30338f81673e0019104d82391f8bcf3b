@@ -1,0 +1,6 @@
+
+public interface Inter {
+	void te01();
+	int te02() ;
+
+}

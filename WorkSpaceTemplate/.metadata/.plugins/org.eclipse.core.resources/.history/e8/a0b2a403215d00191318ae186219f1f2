@@ -1,0 +1,6 @@
+package sw;
+
+public interface person {
+	public void say();
+
+}

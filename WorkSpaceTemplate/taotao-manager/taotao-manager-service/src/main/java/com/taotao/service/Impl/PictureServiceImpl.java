@@ -1,0 +1,63 @@
+package com.taotao.service.Impl;
+
+import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.taotao.common.pojo.DataPicture;
+import com.taotao.common.utils.FtpUtil;
+import com.taotao.common.utils.IDUtils;
+import com.taotao.service.PictureService;
+@Service
+public class PictureServiceImpl implements PictureService {
+
+	@Value("${ftp_address}")
+	private String ftp_address;
+	@Value("${ftp_port}")
+	private int ftp_port;
+	@Value("${ftp_username}")
+	private String ftp_username;
+	@Value("${ftp_password}")
+	private String ftp_password;
+	@Value("${ftp_basepath}")
+	private String ftp_basepath;
+	//用于图片的返回url中
+	@Value("${image_path}")
+	private String image_path;
+	
+	//文件在服务器中的相对路径,日期格式固定写死
+	private String filepath=new DateTime().toString("/yyyy/MM//dd");
+	@Override
+	public DataPicture uploadPicture(MultipartFile file) {
+		DataPicture dataPicture=new DataPicture();
+		try {
+		// TODO Auto-generated method stub
+		String oldName=file.getOriginalFilename();
+		String newName=IDUtils.getImageName();
+		newName=newName+oldName.substring(oldName.lastIndexOf("."));
+		
+		
+		boolean result=FtpUtil.uploadFile(ftp_address, ftp_port, ftp_username, ftp_password, ftp_basepath,
+				filepath, newName, file.getInputStream());
+		if(!result){
+			//失败
+			dataPicture.setError(1);
+			dataPicture.setMessage("error");
+			
+		}else{
+			//成功
+			dataPicture.setError(0);
+			dataPicture.setUrl(image_path+filepath+"/"+newName);
+		}
+		return  dataPicture;
+		} catch (Exception e) {
+			dataPicture.setError(1);
+			dataPicture.setMessage("error");
+			return dataPicture;
+		}
+		 
+		
+	}
+
+}

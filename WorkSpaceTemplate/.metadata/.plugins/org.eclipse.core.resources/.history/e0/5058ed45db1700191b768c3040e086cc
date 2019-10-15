@@ -1,0 +1,24 @@
+package test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+ 
+ 
+
+
+
+public class TestJson {
+
+    @Test
+	public void test(){
+    	
+ 
+    	String a=null;
+    	boolean ysw=MyStringUtils.isEmptyString(a);
+    
+    	System.out.println(ysw);
+	}
+}

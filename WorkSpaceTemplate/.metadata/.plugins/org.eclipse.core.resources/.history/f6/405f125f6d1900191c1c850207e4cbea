@@ -1,0 +1,54 @@
+package com.taotao.portal.service.Impl;
+
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.utils.CookieUtils;
+import com.taotao.common.utils.HttpClientUtil;
+import com.taotao.common.utils.JsonUtils;
+import com.taotao.pojo.TbItem;
+import com.taotao.portal.pojo.CartItem;
+import com.taotao.portal.service.CartService;
+@Service
+public class CartServiceImpl implements CartService {
+
+	@Value("${ITEM-BASE-IP}")
+	private String RedisUrl;
+	@Value("${TT_CART}")
+	private String TT_CART;
+	public TaotaoResult addCartItem(Long id, Long num,HttpServletRequest request,HttpServletResponse response) {
+		
+		CartItem cartItem=new CartItem();
+		
+		//取购物车中的商品列表
+		List<CartItem> list=getCartItemList(request);
+		String json=HttpClientUtil.doGet(RedisUrl+id);
+		TaotaoResult result=TaotaoResult.formatToPojo(json, TbItem.class);
+		if(result.getStatus()==200){
+			//通过id获取商品信息
+			TbItem tbItem=(TbItem) result.getData();
+
+			cartItem.setId(tbItem.getId().toString());
+			cartItem.setImage(tbItem.getImage()==null?"":tbItem.getImage().split(",")[0]);//取第一张图片
+			cartItem.setNum(num);
+			cartItem.setPrice(tbItem.getPrice());
+			cartItem.setTitle(tbItem.getTitle());
+		}
+		return null;
+	}
+	public List<CartItem> getCartItemList(HttpServletRequest request){
+		//从cookie中取出购物车的商品信息
+		String cartJson=CookieUtils.getCookieValue(request, TT_CART, true);
+		List<CartItem> list=JsonUtils.jsonToList(cartJson, CartItem.class);
+		return list;
+		
+	}
+ 
+}

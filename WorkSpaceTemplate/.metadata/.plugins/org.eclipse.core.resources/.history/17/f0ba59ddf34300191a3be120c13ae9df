@@ -1,0 +1,10 @@
+package Test01;
+
+import Test02.en;
+
+public class te extends en {
+	public void run () throws NullPointerException{
+		System.out.println(2);
+	}
+}
+	 

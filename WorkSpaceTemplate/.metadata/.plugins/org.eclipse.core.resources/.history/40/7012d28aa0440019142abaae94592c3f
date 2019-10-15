@@ -1,0 +1,10 @@
+package Test01;
+
+import Test02.en;
+
+public     interface te   {
+	  public void te1();
+	  
+		 
+}
+	 

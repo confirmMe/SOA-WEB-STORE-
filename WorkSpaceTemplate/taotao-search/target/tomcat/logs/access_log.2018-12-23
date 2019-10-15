@@ -1,0 +1,6 @@
+0:0:0:0:0:0:0:1 - - [23/Dec/2018:09:52:14 +0800] "GET /search/query?queryString=%E6%89%8B%E6%9C%BA&&page=1 HTTP/1.1" 200 21388 http-bio-8083-exec-1 1780
+0:0:0:0:0:0:0:1 - - [23/Dec/2018:09:52:15 +0800] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8083-exec-3 2
+127.0.0.1 - - [23/Dec/2018:10:36:57 +0800] "GET /search/query?page=1&queryString=%C3%A4%C2%B8%C2%89%C3%A4%C2%B8%C2%AA%C3%A7%C2%88%C2%B8%C3%A7%C2%88%C2%B8 HTTP/1.1" 500 9041 http-bio-8083-exec-1 21237
+127.0.0.1 - - [23/Dec/2018:10:37:20 +0800] "GET /search/query?page=1&queryString=%C3%A6%C2%89%C2%8B%C3%A6%C2%9C%C2%BA HTTP/1.1" 500 9041 http-bio-8083-exec-2 21006
+127.0.0.1 - - [23/Dec/2018:10:44:20 +0800] "GET /search/query?page=1&queryString=%C3%A6%C2%89%C2%8B%C3%A6%C2%9C%C2%BA HTTP/1.1" 500 9041 http-bio-8083-exec-3 21010
+127.0.0.1 - - [23/Dec/2018:10:44:40 +0800] "GET /search/query?page=1&queryString=%C3%A6%C2%89%C2%8B%C3%A6%C2%9C%C2%BA HTTP/1.1" 500 9041 http-bio-8083-exec-4 21003

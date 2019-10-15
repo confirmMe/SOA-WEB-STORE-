@@ -1,0 +1,21 @@
+package depend;
+
+import java.util.Calendar;
+import java.util.Date;
+
+public class util {
+    public static int getHour(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.HOUR_OF_DAY);
+    }
+    public static String getSysYear() {
+
+    	Calendar date = Calendar.getInstance();
+
+    	String year = String.valueOf(date.get(Calendar.YEAR));
+
+    	return year;
+
+    	}
+}

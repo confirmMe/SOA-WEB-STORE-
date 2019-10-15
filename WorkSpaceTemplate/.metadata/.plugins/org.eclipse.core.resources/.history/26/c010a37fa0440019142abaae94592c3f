@@ -1,0 +1,22 @@
+package Test02;
+
+import org.omg.Messaging.SyncScopeHelper;
+
+import Test01.te;
+
+public class en  {
+	static {
+		System.out.println("静态");
+	}
+	public en(){
+		System.out.println("构造");
+	}
+	private te t=new te(); 
+	public static void main(String[] args) {
+    en e =new en();
+    
+	
+}
+ 
+
+}

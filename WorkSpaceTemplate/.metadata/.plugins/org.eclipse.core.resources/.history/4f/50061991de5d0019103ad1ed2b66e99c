@@ -1,0 +1,29 @@
+package sw;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
+public class te  {
+   public static void main(String[] args) {
+	Map map=new HashMap<>();
+	map.put(1, "y");
+	map.put(2, "h");
+	map.put(3, "n");
+	
+	
+	
+//	 Set  set=map.keySet();
+//	for(Object entry: set){
+//		System.out.println(map.get(entry));
+//	}
+ 
+	Iterator iter=map.entrySet().iterator();
+	while(iter.hasNext()){
+		Entry entry=(Entry) iter.next();
+		System.out.println(map.get(entry.getValue()));
+	}
+}
+}

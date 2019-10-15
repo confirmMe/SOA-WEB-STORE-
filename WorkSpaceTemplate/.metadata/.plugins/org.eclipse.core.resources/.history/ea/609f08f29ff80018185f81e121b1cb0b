@@ -1,0 +1,12 @@
+package com.taotao.service;
+
+import com.taotao.common.pojo.EUDataResult;
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.pojo.TbItem;
+
+public interface ItemService {
+	
+    public TbItem getItemById(long itemId);
+    public EUDataResult  getItemList(int page,int rows );
+    public TaotaoResult addItem(TbItem item,String desc);
+}

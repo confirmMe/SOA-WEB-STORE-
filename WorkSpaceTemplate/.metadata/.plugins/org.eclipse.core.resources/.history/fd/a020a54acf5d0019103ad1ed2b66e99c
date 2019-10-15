@@ -1,0 +1,9 @@
+package sw;
+class father{
+	public father(){
+		
+	}
+}
+public class te {
+
+}

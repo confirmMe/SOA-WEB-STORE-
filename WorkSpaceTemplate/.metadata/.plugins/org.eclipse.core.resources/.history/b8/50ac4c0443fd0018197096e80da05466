@@ -1,0 +1,15 @@
+package com.taotao.service;
+
+import java.util.List;
+
+import com.taotao.common.pojo.EUDataCat;
+import com.taotao.common.pojo.EUDataResult;
+import com.taotao.common.pojo.TaotaoResult;
+
+public interface ContentService {
+   List<EUDataCat> catalogList(Long parentId);
+   TaotaoResult  ContentCatSave(Long parentId,String name);
+   TaotaoResult    ContentCatUpdate(Long id,String name);
+   TaotaoResult ContentCatDelete( Long id);
+   EUDataResult showContentList(i categoryId ,int page,int rows);
+}

@@ -1,0 +1,45 @@
+package Test;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Test;
+
+import redis.clients.jedis.HostAndPort;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.JedisPool;
+
+public class redisTest {
+	@Test
+public void test(){
+	
+		
+		Jedis jedis=new Jedis("192.168.93.91" ,6379);
+		jedis.set("ysw", "45");
+		System.out.println(jedis.get("ysw"));
+		jedis.close();
+		
+}
+	@Test
+	public void Test1(){
+	   JedisPool jedisPool=new JedisPool("192.168.93.91" ,6379);
+	   Jedis jedis=	jedisPool.getResource();
+	   System.out.println(jedis.get("ysw"));
+	   jedis.close();
+	}
+	@Test
+	public void Test2(){
+		Set<HostAndPort> set=new HashSet<>();
+		set.add(new HostAndPort("192.168.93.91", 6381));
+		set.add(new HostAndPort("192.168.93.91", 6382));
+		set.add(new HostAndPort("192.168.93.91", 6383));
+		set.add(new HostAndPort("192.168.93.91", 6384));
+		set.add(new HostAndPort("192.168.93.91", 6385));
+		set.add(new HostAndPort("192.168.93.91", 6386));
+		JedisCluster cluster=new JedisCluster(set);
+		cluster.set("sw", "56");
+		System.out.println(cluster.get("sw"));
+		cluster.close();
+	}
+}

@@ -1,0 +1,19 @@
+package Test02;
+
+import org.omg.Messaging.SyncScopeHelper;
+
+import Test01.te;
+
+public class en extends te{
+ public static void main(String[] args) {
+  class fo{
+	  public int i=3;
+  }
+  Object o=new fo();
+  fo f=(fo) o;
+  System.out.println(f.i);
+	
+}
+ 
+
+}

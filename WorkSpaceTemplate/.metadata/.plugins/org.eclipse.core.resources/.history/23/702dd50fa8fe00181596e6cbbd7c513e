@@ -1,0 +1,15 @@
+package test;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Value;
+
+public class test {
+	@Value("${SmallAdver}")
+	private String test;
+	@Test
+	public void test1(){
+
+	System.out.println(test);
+	
+	}
+}

@@ -1,0 +1,26 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+public class 获取 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+    String text="i want to find the high world";
+    String str="\\b[a-z]{3}\\b";//\\b是单词边界（06正则表达式14'30"）
+    Pattern p=Pattern.compile(str);
+    //将正则封装成对象
+    Matcher match=p.matcher(text);
+    //通过正则对象获取匹配器对象
+    while(match.find()){//查找
+    
+    System.out.println(match.group());//返回所有长度只有3的字符
+    System.out.println(match.start());
+    System.out.println(match.end());
+    }
+	}
+
+}

@@ -1,0 +1,15 @@
+package test;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+@Service
+public class test {
+	@Value("${BigAdver}")
+	private String ysw;
+	@Test
+	public void test(){
+		System.err.println(ysw);
+		
+	}
+}

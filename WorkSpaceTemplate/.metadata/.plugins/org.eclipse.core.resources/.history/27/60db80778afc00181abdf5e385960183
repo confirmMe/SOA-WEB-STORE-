@@ -1,0 +1,32 @@
+package com.taotao.rest.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.taotao.common.utils.JsonUtils;
+import com.taotao.rest.pojo.CatNode;
+
+public class test {
+    	 
+ @Test
+	public void test() throws JsonProcessingException{
+		CatNode catNode=new CatNode();
+	     List<String> list=new ArrayList<>();
+	     list.add("y");
+	     list.add("s");
+	     list.add("w");
+	     
+	     catNode.setItem(list);
+	     catNode.setName("en");
+	     catNode.setUrl("--");
+	     
+	     ObjectMapper mapper=new ObjectMapper();
+	    String result= mapper.writeValueAsString(catNode);
+	    System.out.println(result);
+		
+	}
+}

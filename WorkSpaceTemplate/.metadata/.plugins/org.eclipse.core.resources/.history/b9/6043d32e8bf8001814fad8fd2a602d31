@@ -1,0 +1,32 @@
+package com.taotao.common.pojo;
+/**
+ * 用于返回前端的图片上传功能需要的信息
+ * <p>Title: DataPicture</p>
+ * <p>Description: </p>
+ * @author	阎述伟
+ * @date	2018年12月5日下午4:37:34
+ * @version 1.0
+ */
+public class DataPicture {
+      private  int error;
+      private String message;
+      private String url;
+	public int getError() {
+		return error;
+	}
+	public void setError(int error) {
+		this.error = error;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+}
